@@ -6,41 +6,90 @@ interface StepIndicatorProps {
   labels?: string[];
 }
 
+function CheckIcon() {
+  return (
+    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="1,5 4,8.5 11,1.5" />
+    </svg>
+  );
+}
+
 export default function StepIndicator({ steps, current, labels }: StepIndicatorProps) {
   return (
-    <div className="flex items-center gap-2">
-      {Array.from({ length: steps }, (_, i) => {
-        const stepNum = i + 1;
-        const done = stepNum < current;
-        const active = stepNum === current;
-        return (
-          <div key={stepNum} className="flex items-center gap-2">
-            <div
-              className={cn(
-                "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-medium transition-colors",
-                done && "bg-primary text-primary-foreground",
-                active && "border-2 border-primary bg-background text-primary",
-                !done && !active && "border border-muted-foreground/30 bg-muted text-muted-foreground"
+    <div className="w-full">
+      {/* Circles + connecting lines */}
+      <div className={`grid items-center`} style={{ gridTemplateColumns: `repeat(${steps}, 1fr)` }}>
+        {Array.from({ length: steps }, (_, i) => {
+          const stepNum = i + 1;
+          const done = stepNum < current;
+          const active = stepNum === current;
+          const isFirst = i === 0;
+          const isLast = i === steps - 1;
+
+          return (
+            <div key={stepNum} className="relative flex items-center justify-center">
+              {/* Left half-line */}
+              {!isFirst && (
+                <div
+                  className={cn(
+                    "absolute right-1/2 top-4 h-px",
+                    "left-0",
+                    stepNum <= current ? "bg-primary" : "bg-border"
+                  )}
+                />
               )}
-            >
-              {done ? "✓" : stepNum}
-            </div>
-            {labels?.[i] && (
-              <span
+              {/* Right half-line */}
+              {!isLast && (
+                <div
+                  className={cn(
+                    "absolute left-1/2 top-4 h-px",
+                    "right-0",
+                    done ? "bg-primary" : "bg-border"
+                  )}
+                />
+              )}
+              {/* Circle */}
+              <div
                 className={cn(
-                  "hidden text-sm sm:block",
-                  active ? "font-medium text-foreground" : "text-muted-foreground"
+                  "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-colors",
+                  done && "bg-primary text-primary-foreground",
+                  active && "bg-background border-2 border-primary text-primary",
+                  !done && !active && "bg-background border-2 border-border text-muted-foreground/50"
                 )}
               >
-                {labels[i]}
-              </span>
-            )}
-            {stepNum < steps && (
-              <div className={cn("h-px w-6 flex-1", done ? "bg-primary" : "bg-border")} />
-            )}
-          </div>
-        );
-      })}
+                {done ? <CheckIcon /> : stepNum}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Labels */}
+      {labels && labels.length > 0 && (
+        <div
+          className="mt-2 grid"
+          style={{ gridTemplateColumns: `repeat(${steps}, 1fr)` }}
+        >
+          {labels.map((label, i) => {
+            const stepNum = i + 1;
+            const active = stepNum === current;
+            const done = stepNum < current;
+            return (
+              <p
+                key={i}
+                className={cn(
+                  "text-center text-[11px] leading-tight",
+                  active && "font-semibold text-foreground",
+                  done && "text-muted-foreground",
+                  !done && !active && "text-muted-foreground/40"
+                )}
+              >
+                {label}
+              </p>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
