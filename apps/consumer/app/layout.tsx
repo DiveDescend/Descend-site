@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import TopNav from "@/components/nav/top-nav";
+import BottomNav from "@/components/nav/bottom-nav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,14 +11,14 @@ export const metadata: Metadata = {
     "Discover dive sites, explore operators, and book scuba diving experiences worldwide.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <TopNav />
+        <main className="pb-16 md:pb-0">{children}</main>
+        <BottomNav />
+      </body>
     </html>
   );
 }
