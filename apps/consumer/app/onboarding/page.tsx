@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Plus, Trash2, ChevronDown } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils";
 
 const STEP_LABELS = ["About you", "Password", "Certified?", "Details", "Profile"];
 
-// Certification agency → levels mapping
 const CERT_DATA: Record<string, string[]> = {
   PADI: [
     "Scuba Diver",
@@ -100,6 +99,10 @@ const emptyCert = (): CertEntry => ({ agency: "", level: "", number: "" });
 const selectClass =
   "flex h-10 w-full appearance-none rounded-md border border-input bg-background px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer";
 
+function Required() {
+  return <span className="ml-0.5 text-destructive">*</span>;
+}
+
 function SelectWrapper({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative">
@@ -112,13 +115,11 @@ function SelectWrapper({ children }: { children: React.ReactNode }) {
 function CertForm({
   cert,
   index,
-  total,
   onChange,
   onRemove,
 }: {
   cert: CertEntry;
   index: number;
-  total: number;
   onChange: (field: keyof CertEntry, value: string) => void;
   onRemove: () => void;
 }) {
@@ -138,7 +139,6 @@ function CertForm({
         </div>
       )}
 
-      {/* Agency */}
       <div className="space-y-1.5">
         <label className="text-sm font-medium">Certification agency</label>
         <SelectWrapper>
@@ -155,7 +155,6 @@ function CertForm({
         </SelectWrapper>
       </div>
 
-      {/* Level — appears once agency is chosen */}
       {cert.agency && (
         <div className="space-y-1.5">
           <label className="text-sm font-medium">Certification level</label>
@@ -182,7 +181,6 @@ function CertForm({
         </div>
       )}
 
-      {/* Number — appears once level is chosen */}
       {cert.agency && cert.level && (
         <div className="space-y-1.5">
           <label className="text-sm font-medium">Certification number</label>
@@ -202,10 +200,14 @@ export default function OnboardingPage() {
   const [certified, setCertified] = useState<boolean | null>(null);
   const [certs, setCerts] = useState<CertEntry[]>([emptyCert()]);
 
+  const goBack = () => {
+    if (step === 5) return setStep(certified ? 4 : 3);
+    if (step > 1) setStep(step - 1);
+  };
+
   const updateCert = (index: number, field: keyof CertEntry, value: string) => {
     setCerts((prev) => {
       const next = [...prev];
-      // Reset downstream fields when agency changes
       if (field === "agency") {
         next[index] = { agency: value, level: "", number: "" };
       } else if (field === "level") {
@@ -218,13 +220,29 @@ export default function OnboardingPage() {
   };
 
   const addCert = () => setCerts((prev) => [...prev, emptyCert()]);
-  const removeCert = (index: number) =>
-    setCerts((prev) => prev.filter((_, i) => i !== index));
+  const removeCert = (index: number) => setCerts((prev) => prev.filter((_, i) => i !== index));
 
   return (
     <div className="flex min-h-[calc(100vh-56px)] items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md space-y-6">
-        <StepIndicator steps={5} current={step} labels={STEP_LABELS} />
+      <div className="w-full max-w-md space-y-5">
+
+        {/* Navigation row: back button left, step indicator right */}
+        <div className="flex items-start gap-3">
+          <div className="w-12 shrink-0 pt-1.5">
+            {step > 1 && (
+              <button
+                onClick={goBack}
+                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back
+              </button>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <StepIndicator steps={5} current={step} labels={STEP_LABELS} />
+          </div>
+        </div>
 
         {/* Step 1 — About you */}
         {step === 1 && (
@@ -235,11 +253,11 @@ export default function OnboardingPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-medium">Full name</label>
+                <label className="text-sm font-medium">Full name<Required /></label>
                 <Input placeholder="Jane Divers" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium">Date of birth</label>
+                <label className="text-sm font-medium">Date of birth<Required /></label>
                 <Input type="date" />
               </div>
               <Button className="w-full" onClick={() => setStep(2)}>Continue</Button>
@@ -256,15 +274,14 @@ export default function OnboardingPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-medium">Password</label>
+                <label className="text-sm font-medium">Password<Required /></label>
                 <Input type="password" placeholder="••••••••" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium">Confirm password</label>
+                <label className="text-sm font-medium">Confirm password<Required /></label>
                 <Input type="password" placeholder="••••••••" />
               </div>
               <Button className="w-full" onClick={() => setStep(3)}>Continue</Button>
-              <Button variant="ghost" className="w-full" onClick={() => setStep(1)}>Back</Button>
             </CardContent>
           </Card>
         )}
@@ -279,27 +296,15 @@ export default function OnboardingPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button
-                className="w-full"
-                onClick={() => { setCertified(true); setStep(4); }}
-              >
+              <Button className="w-full" onClick={() => { setCertified(true); setStep(4); }}>
                 Yes, I&apos;m certified
               </Button>
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => { setCertified(false); setStep(5); }}
-              >
+              <Button variant="outline" className="w-full" onClick={() => { setCertified(false); setStep(5); }}>
                 No, I&apos;m not certified yet
               </Button>
-              <Button
-                variant="ghost"
-                className="w-full text-muted-foreground"
-                onClick={() => setStep(5)}
-              >
+              <Button variant="ghost" className="w-full text-muted-foreground" onClick={() => setStep(5)}>
                 Skip for now
               </Button>
-              <Button variant="ghost" className="w-full" onClick={() => setStep(2)}>Back</Button>
             </CardContent>
           </Card>
         )}
@@ -310,7 +315,7 @@ export default function OnboardingPage() {
             <CardHeader>
               <CardTitle>Your certification details</CardTitle>
               <CardDescription>
-                You can add multiple certifications. You can also fill this in later.
+                You can add multiple certifications and fill this in later.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -319,7 +324,6 @@ export default function OnboardingPage() {
                   key={i}
                   cert={cert}
                   index={i}
-                  total={certs.length}
                   onChange={(field, value) => updateCert(i, field, value)}
                   onRemove={() => removeCert(i)}
                 />
@@ -334,14 +338,9 @@ export default function OnboardingPage() {
               </button>
 
               <Button className="w-full" onClick={() => setStep(5)}>Continue</Button>
-              <Button
-                variant="ghost"
-                className="w-full text-muted-foreground"
-                onClick={() => setStep(5)}
-              >
+              <Button variant="ghost" className="w-full text-muted-foreground" onClick={() => setStep(5)}>
                 Skip for now
               </Button>
-              <Button variant="ghost" className="w-full" onClick={() => setStep(3)}>Back</Button>
             </CardContent>
           </Card>
         )}
@@ -361,7 +360,9 @@ export default function OnboardingPage() {
                 <Button variant="outline" size="sm">Upload photo</Button>
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium">Bio</label>
+                <label className="text-sm font-medium">
+                  Bio <span className="text-muted-foreground font-normal">(optional)</span>
+                </label>
                 <textarea
                   className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
                   placeholder="Tell other divers a bit about yourself..."
@@ -373,16 +374,10 @@ export default function OnboardingPage() {
               <Button variant="ghost" className="w-full text-muted-foreground" asChild>
                 <Link href="/">Skip for now</Link>
               </Button>
-              <Button
-                variant="ghost"
-                className="w-full"
-                onClick={() => setStep(certified ? 4 : 3)}
-              >
-                Back
-              </Button>
             </CardContent>
           </Card>
         )}
+
       </div>
     </div>
   );
