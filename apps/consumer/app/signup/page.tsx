@@ -9,28 +9,16 @@ export default function SignUpPage() {
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Create your account</CardTitle>
-          <CardDescription>Start discovering and booking dives worldwide</CardDescription>
+          <CardDescription>Enter your email to get started</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium" htmlFor="name">Full name</label>
-            <Input id="name" type="text" placeholder="Jane Divers" />
-          </div>
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="email">Email</label>
             <Input id="email" type="email" placeholder="you@example.com" />
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium" htmlFor="password">Password</label>
-            <Input id="password" type="password" placeholder="••••••••" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium" htmlFor="confirm-password">Confirm password</label>
-            <Input id="confirm-password" type="password" placeholder="••••••••" />
-          </div>
 
           <Button className="w-full" asChild>
-            <Link href="/onboarding">Create account</Link>
+            <Link href="/signup/verify">Continue with email</Link>
           </Button>
 
           <div className="relative flex items-center gap-3 py-1">

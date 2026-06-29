@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import StepIndicator from "@/components/shared/step-indicator";
 
-const STEP_LABELS = ["Basic info", "Certification", "Details", "Profile"];
+const STEP_LABELS = ["About you", "Password", "Certification", "Details", "Profile"];
 
 export default function OnboardingPage() {
   const [step, setStep] = useState(1);
@@ -16,7 +16,7 @@ export default function OnboardingPage() {
   return (
     <div className="flex min-h-[calc(100vh-56px)] items-center justify-center px-4 py-12">
       <div className="w-full max-w-md space-y-6">
-        <StepIndicator steps={4} current={step} labels={STEP_LABELS} />
+        <StepIndicator steps={5} current={step} labels={STEP_LABELS} />
 
         {step === 1 && (
           <Card>
@@ -43,6 +43,35 @@ export default function OnboardingPage() {
         {step === 2 && (
           <Card>
             <CardHeader>
+              <CardTitle>Create a password</CardTitle>
+              <CardDescription>You&apos;ll use this to log in to your Descend account.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Password</label>
+                <Input type="password" placeholder="••••••••" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Confirm password</label>
+                <Input type="password" placeholder="••••••••" />
+              </div>
+              <Button className="w-full" onClick={() => setStep(3)}>
+                Continue
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full text-muted-foreground"
+                onClick={() => setStep(1)}
+              >
+                Back
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+        {step === 3 && (
+          <Card>
+            <CardHeader>
               <CardTitle>Are you a certified diver?</CardTitle>
               <CardDescription>
                 Certification is required to book fun dives. Courses are open to everyone.
@@ -51,21 +80,21 @@ export default function OnboardingPage() {
             <CardContent className="space-y-3">
               <Button
                 className="w-full"
-                onClick={() => { setCertified(true); setStep(3); }}
+                onClick={() => { setCertified(true); setStep(4); }}
               >
                 Yes, I&apos;m certified
               </Button>
               <Button
                 variant="outline"
                 className="w-full"
-                onClick={() => { setCertified(false); setStep(4); }}
+                onClick={() => { setCertified(false); setStep(5); }}
               >
                 No, I&apos;m not certified yet
               </Button>
               <Button
                 variant="ghost"
                 className="w-full text-muted-foreground"
-                onClick={() => setStep(4)}
+                onClick={() => setStep(5)}
               >
                 Skip for now
               </Button>
@@ -73,7 +102,7 @@ export default function OnboardingPage() {
           </Card>
         )}
 
-        {step === 3 && (
+        {step === 4 && certified && (
           <Card>
             <CardHeader>
               <CardTitle>Your certification details</CardTitle>
@@ -94,13 +123,13 @@ export default function OnboardingPage() {
                 <label className="text-sm font-medium">Certification number</label>
                 <Input placeholder="e.g. 1234567" />
               </div>
-              <Button className="w-full" onClick={() => setStep(4)}>
+              <Button className="w-full" onClick={() => setStep(5)}>
                 Continue
               </Button>
               <Button
                 variant="ghost"
                 className="w-full text-muted-foreground"
-                onClick={() => setStep(4)}
+                onClick={() => setStep(5)}
               >
                 Skip for now
               </Button>
@@ -108,7 +137,7 @@ export default function OnboardingPage() {
           </Card>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <Card>
             <CardHeader>
               <CardTitle>Set up your profile</CardTitle>

@@ -71,6 +71,11 @@ export default function Footer() {
                   Terms of Use
                 </Link>
               </li>
+              <li className="pt-1">
+                <Link href="/for-operators" className="hover:text-foreground transition-colors font-medium text-foreground/80">
+                  List your dive centre →
+                </Link>
+              </li>
             </ul>
           </div>
 
