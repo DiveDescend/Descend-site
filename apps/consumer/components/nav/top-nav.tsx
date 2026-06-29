@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export default function TopNav() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
+      <div className="mx-auto flex h-14 max-w-screen-2xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2.5">
           <Image src="/logo.svg" alt="Descend" width={28} height={23} priority />
           <span className="text-xl font-bold tracking-tight">Descend</span>

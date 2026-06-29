@@ -7,7 +7,7 @@ import { LOCATIONS, DIVE_CENTERS, CREATURES } from "@/lib/mock-data";
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 space-y-10">
+    <div className="mx-auto max-w-screen-2xl px-4 py-8 space-y-10">
       <section className="space-y-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Find your next dive</h1>

@@ -1,25 +1,25 @@
 export const LOCATIONS = [
-  { id: "1", name: "Raja Ampat", country: "Indonesia", diveCount: 312, color: "bg-teal-400" },
-  { id: "2", name: "Great Barrier Reef", country: "Australia", diveCount: 489, color: "bg-blue-400" },
-  { id: "3", name: "Palau", country: "Micronesia", diveCount: 201, color: "bg-cyan-500" },
-  { id: "4", name: "Maldives", country: "Maldives", diveCount: 376, color: "bg-sky-400" },
-  { id: "5", name: "Galápagos", country: "Ecuador", diveCount: 143, color: "bg-emerald-500" },
-  { id: "6", name: "Komodo", country: "Indonesia", diveCount: 228, color: "bg-teal-600" },
-  { id: "7", name: "Cocos Island", country: "Costa Rica", diveCount: 97, color: "bg-blue-500" },
-  { id: "8", name: "Bali", country: "Indonesia", diveCount: 541, color: "bg-cyan-400" },
-  { id: "9", name: "Cozumel", country: "Mexico", diveCount: 302, color: "bg-sky-500" },
-  { id: "10", name: "Red Sea", country: "Egypt", diveCount: 417, color: "bg-blue-600" },
+  { id: "1", name: "Raja Ampat", country: "Indonesia", diveCount: 312, image: "https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=800&q=80" },
+  { id: "2", name: "Great Barrier Reef", country: "Australia", diveCount: 489, image: "https://images.unsplash.com/photo-1583212292454-27b36f3a7414?auto=format&fit=crop&w=800&q=80" },
+  { id: "3", name: "Palau", country: "Micronesia", diveCount: 201, image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" },
+  { id: "4", name: "Maldives", country: "Maldives", diveCount: 376, image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80" },
+  { id: "5", name: "Galápagos", country: "Ecuador", diveCount: 143, image: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=800&q=80" },
+  { id: "6", name: "Komodo", country: "Indonesia", diveCount: 228, image: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=800&q=80" },
+  { id: "7", name: "Cocos Island", country: "Costa Rica", diveCount: 97, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" },
+  { id: "8", name: "Bali", country: "Indonesia", diveCount: 541, image: "https://images.unsplash.com/photo-1559591935-c79d543e5e5d?auto=format&fit=crop&w=800&q=80" },
+  { id: "9", name: "Cozumel", country: "Mexico", diveCount: 302, image: "https://images.unsplash.com/photo-1487149996460-b25b91a90d19?auto=format&fit=crop&w=800&q=80" },
+  { id: "10", name: "Red Sea", country: "Egypt", diveCount: 417, image: "https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=800&q=80" },
 ];
 
 export const CREATURES = [
-  { id: "1", name: "Manta Ray", tagline: "Graceful giants of the open ocean", color: "bg-slate-500" },
-  { id: "2", name: "Whale Shark", tagline: "The ocean's gentle giant", color: "bg-blue-700" },
-  { id: "3", name: "Sea Turtle", tagline: "Ancient mariners of the deep", color: "bg-green-600" },
-  { id: "4", name: "Hammerhead Shark", tagline: "Masters of the reef wall", color: "bg-slate-600" },
-  { id: "5", name: "Nudibranch", tagline: "Tiny jewels of the sea floor", color: "bg-pink-500" },
-  { id: "6", name: "Pygmy Seahorse", tagline: "Masters of camouflage", color: "bg-orange-400" },
-  { id: "7", name: "Thresher Shark", tagline: "Dawn hunters of Malapascua", color: "bg-slate-700" },
-  { id: "8", name: "Dugong", tagline: "Sea cows of the shallows", color: "bg-teal-700" },
+  { id: "1", name: "Manta Ray", tagline: "Graceful giants of the open ocean", image: "https://images.unsplash.com/photo-1564146527183-d04e6a6eb56a?auto=format&fit=crop&w=800&q=80" },
+  { id: "2", name: "Whale Shark", tagline: "The ocean's gentle giant", image: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=800&q=80" },
+  { id: "3", name: "Sea Turtle", tagline: "Ancient mariners of the deep", image: "https://images.unsplash.com/photo-1508193638397-1cc4ff24c8a7?auto=format&fit=crop&w=800&q=80" },
+  { id: "4", name: "Hammerhead Shark", tagline: "Masters of the reef wall", image: "https://images.unsplash.com/photo-1491438590914-bc09024cb91d?auto=format&fit=crop&w=800&q=80" },
+  { id: "5", name: "Nudibranch", tagline: "Tiny jewels of the sea floor", image: "https://images.unsplash.com/photo-1565128939010-4d26d6b7e6f5?auto=format&fit=crop&w=800&q=80" },
+  { id: "6", name: "Pygmy Seahorse", tagline: "Masters of camouflage", image: "https://images.unsplash.com/photo-1583212292454-27b36f3a7414?auto=format&fit=crop&w=800&q=80" },
+  { id: "7", name: "Thresher Shark", tagline: "Dawn hunters of Malapascua", image: "https://images.unsplash.com/photo-1517699418-26f4f8d1ed49?auto=format&fit=crop&w=800&q=80" },
+  { id: "8", name: "Dugong", tagline: "Sea cows of the shallows", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" },
 ];
 
 export const DIVE_CENTERS = [
@@ -31,6 +31,7 @@ export const DIVE_CENTERS = [
     reviewCount: 214,
     certifications: ["PADI", "SSI"],
     description: "Award-winning dive centre operating in the heart of the Coral Triangle since 2009.",
+    image: "https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "2",
@@ -40,6 +41,7 @@ export const DIVE_CENTERS = [
     reviewCount: 389,
     certifications: ["PADI"],
     description: "Day trips and liveaboards across the outer reef — small groups, experienced guides.",
+    image: "https://images.unsplash.com/photo-1583212292454-27b36f3a7414?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "3",
@@ -49,6 +51,7 @@ export const DIVE_CENTERS = [
     reviewCount: 156,
     certifications: ["PADI", "NAUI"],
     description: "Specialising in blue-corner wall dives and WWII wreck exploration.",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "4",
@@ -58,6 +61,7 @@ export const DIVE_CENTERS = [
     reviewCount: 278,
     certifications: ["SSI"],
     description: "Liveaboard specialists covering all 26 atolls of the Maldivian archipelago.",
+    image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "5",
@@ -67,6 +71,7 @@ export const DIVE_CENTERS = [
     reviewCount: 112,
     certifications: ["PADI", "NAUI"],
     description: "Expert-led expeditions to world-famous dive sites including Gordon Rocks.",
+    image: "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=800&q=80",
   },
   {
     id: "6",
@@ -76,6 +81,7 @@ export const DIVE_CENTERS = [
     reviewCount: 191,
     certifications: ["PADI", "SSI"],
     description: "Full-service dive centre with on-site pool and liveaboard departures.",
+    image: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
