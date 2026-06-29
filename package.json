@@ -1,0 +1,15 @@
+{
+  "name": "descend-site",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "typescript": "^5",
+    "prettier": "^3"
+  },
+  "packageManager": "pnpm@11.8.0"
+}
