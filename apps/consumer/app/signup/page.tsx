@@ -3,15 +3,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <div className="flex min-h-[calc(100vh-56px)] items-center justify-center px-4 py-12">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Welcome back</CardTitle>
-          <CardDescription>Sign in to your Descend account</CardDescription>
+          <CardTitle className="text-2xl">Create your account</CardTitle>
+          <CardDescription>Start discovering and booking dives worldwide</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium" htmlFor="name">Full name</label>
+            <Input id="name" type="text" placeholder="Jane Divers" />
+          </div>
           <div className="space-y-2">
             <label className="text-sm font-medium" htmlFor="email">Email</label>
             <Input id="email" type="email" placeholder="you@example.com" />
@@ -20,7 +24,14 @@ export default function LoginPage() {
             <label className="text-sm font-medium" htmlFor="password">Password</label>
             <Input id="password" type="password" placeholder="••••••••" />
           </div>
-          <Button className="w-full">Sign in</Button>
+          <div className="space-y-2">
+            <label className="text-sm font-medium" htmlFor="confirm-password">Confirm password</label>
+            <Input id="confirm-password" type="password" placeholder="••••••••" />
+          </div>
+
+          <Button className="w-full" asChild>
+            <Link href="/onboarding">Create account</Link>
+          </Button>
 
           <div className="relative flex items-center gap-3 py-1">
             <div className="flex-1 border-t" />
@@ -39,9 +50,9 @@ export default function LoginPage() {
           </Button>
 
           <p className="text-center text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-primary hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <Link href="/login" className="text-primary hover:underline">
+              Log in
             </Link>
           </p>
         </CardContent>
