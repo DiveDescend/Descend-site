@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Star, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+
+const CERT_ICONS: Record<string, string> = {
+  PADI: "/padi.svg",
+  SSI: "/ssi.svg",
+  NAUI: "/naui.svg",
+};
 
 interface DiveCenterCardProps {
   id: string;
@@ -14,44 +18,41 @@ interface DiveCenterCardProps {
   image: string;
 }
 
-export default function DiveCenterCard({
-  id,
-  name,
-  location,
-  rating,
-  reviewCount,
-  certifications,
-  image,
-}: DiveCenterCardProps) {
+export default function DiveCenterCard({ id, name, location, certifications, image }: DiveCenterCardProps) {
   return (
-    <Link href={`/dive-centers/${id}`}>
-      <Card className="overflow-hidden transition-shadow hover:shadow-md">
-        <div className="relative h-40">
-          <Image src={image} alt={name} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        </div>
-        <CardContent className="p-4">
-          <p className="font-semibold">{name}</p>
-          <p className="mb-2 flex items-center gap-1 text-xs text-muted-foreground">
-            <MapPin className="h-3 w-3" />
+    <Link href={`/dive-centers/${id}`} className="group block">
+      <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
+        <Image
+          src={image}
+          alt={name}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+        />
+      </div>
+      <div className="mt-3 space-y-1.5">
+        <p className="text-xl font-bold tracking-tight">{name}</p>
+        <div className="flex items-center justify-between">
+          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
             {location}
           </p>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1 text-sm">
-              <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-              <span className="font-medium">{rating}</span>
-              <span className="text-muted-foreground">({reviewCount})</span>
-            </div>
-            <div className="flex gap-1">
-              {certifications.map((cert) => (
-                <Badge key={cert} variant="secondary" className="text-[10px]">
-                  {cert}
-                </Badge>
-              ))}
-            </div>
+          <div className="flex items-center gap-1.5">
+            {certifications.map((cert) =>
+              CERT_ICONS[cert] ? (
+                <Image
+                  key={cert}
+                  src={CERT_ICONS[cert]}
+                  alt={cert}
+                  width={24}
+                  height={24}
+                  className="shrink-0"
+                />
+              ) : null
+            )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </Link>
   );
 }
