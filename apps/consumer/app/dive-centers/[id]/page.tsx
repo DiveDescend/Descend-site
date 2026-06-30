@@ -5,54 +5,37 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
-  MapPin, Star, Clock, Phone, Globe, ExternalLink,
+  MapPin, Star, Clock, Phone, Globe, ExternalLink, ArrowDown,
   Droplets, Lock, Bed, Coffee, Heart, Package, Car,
   Gauge, Wrench, Camera, Anchor, Wifi, Ship,
   Fish, Moon, Wind, Layers, Zap, Lightbulb,
 } from "lucide-react";
 import { DIVE_CENTERS, COURSES, FUN_DIVES } from "@/lib/mock-data";
+import CardCarousel from "@/components/shared/card-carousel";
 
-const CERT_LOGOS: Record<string, string> = {
-  PADI: "/padi.svg",
-  SSI:  "/ssi.svg",
-  NAUI: "/naui.svg",
-};
+const CERT_LOGOS: Record<string, string> = { PADI: "/padi.svg", SSI: "/ssi.svg", NAUI: "/naui.svg" };
 
 const AMENITY_ICONS: Record<string, React.FC<{ className?: string }>> = {
-  "Showers":             Droplets,
-  "Lockers":             Lock,
-  "Accommodation":       Bed,
-  "Cafeteria":           Coffee,
-  "First Aid":           Heart,
-  "Equipment Rental":    Package,
-  "Shuttle Service":     Car,
-  "Nitrox Fills":        Gauge,
-  "Equipment Servicing": Wrench,
-  "Photo & Video":       Camera,
-  "Boat Dives":          Anchor,
-  "Wi-Fi":               Wifi,
+  "Showers": Droplets, "Lockers": Lock, "Accommodation": Bed, "Cafeteria": Coffee,
+  "First Aid": Heart, "Equipment Rental": Package, "Shuttle Service": Car,
+  "Nitrox Fills": Gauge, "Equipment Servicing": Wrench, "Photo & Video": Camera,
+  "Boat Dives": Anchor, "Wi-Fi": Wifi,
 };
 
 const DIVE_TYPE_ICONS: Record<string, React.FC<{ className?: string }>> = {
-  "Reef Dive":        Fish,
-  "Night Dive":       Moon,
-  "Wreck Dive":       Anchor,
-  "Deep Dive":        Layers,
-  "Wall Dive":        Layers,
-  "Drift Dive":       Wind,
-  "Photography Dive": Camera,
-  "Shark Dive":       Zap,
-  "Cave Dive":        Lightbulb,
-  "Liveaboard":       Ship,
+  "Reef Dive": Fish, "Night Dive": Moon, "Wreck Dive": Anchor, "Deep Dive": Layers,
+  "Wall Dive": Layers, "Drift Dive": Wind, "Photography Dive": Camera,
+  "Shark Dive": Zap, "Cave Dive": Lightbulb, "Liveaboard": Ship,
 };
 
 export default function DiveCenterProfilePage({ params }: { params: { id: string } }) {
   const center = DIVE_CENTERS.find((dc) => dc.id === params.id) ?? DIVE_CENTERS[0];
+  const mapsUrl = `https://www.google.com/maps?q=${center.coordinates.lat},${center.coordinates.lng}`;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 space-y-8">
 
-      {/* ── Hero image ── */}
+      {/* Hero */}
       <div className="relative aspect-[21/8] w-full overflow-hidden rounded-2xl">
         <Image src={center.image} alt={center.name} fill className="object-cover" priority />
         {center.padi5star && (
@@ -63,13 +46,12 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
         )}
       </div>
 
-      {/* ── Title + meta ── */}
+      {/* Title + meta */}
       <div className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tight">{center.name}</h1>
         <div className="flex flex-wrap items-center gap-4">
           <p className="flex items-center gap-1.5 text-muted-foreground">
-            <MapPin className="h-4 w-4 shrink-0" />
-            {center.location}
+            <MapPin className="h-4 w-4 shrink-0" />{center.location}
           </p>
           <div className="flex items-center gap-1.5">
             <Star className="h-4 w-4 fill-foreground text-foreground" />
@@ -88,10 +70,10 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
         </div>
       </div>
 
-      {/* ── Two-column layout ── */}
+      {/* Two-column */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
 
-        {/* ── Main content ── */}
+        {/* ── Main ── */}
         <div className="lg:col-span-2">
           <Tabs defaultValue="overview">
             <TabsList className="w-full sm:w-auto">
@@ -101,10 +83,9 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
               <TabsTrigger value="reviews">Reviews</TabsTrigger>
             </TabsList>
 
-            {/* Overview */}
+            {/* ── Overview ── */}
             <TabsContent value="overview" className="space-y-10 pt-6">
 
-              {/* Description */}
               <p className="text-muted-foreground leading-relaxed">{center.description}</p>
 
               {/* Amenities */}
@@ -146,16 +127,8 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                   {center.diveSites.map((site) => (
                     <div key={site.id} className="group">
                       <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
-                        <Image
-                          src={site.image}
-                          alt={site.name}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          sizes="(max-width: 640px) 50vw, 33vw"
-                        />
-                        <div className="absolute bottom-2 right-2 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
-                          {site.type}
-                        </div>
+                        <Image src={site.image} alt={site.name} fill className="object-cover transition-transform duration-300 group-hover:scale-105" sizes="(max-width: 640px) 50vw, 33vw" />
+                        <div className="absolute bottom-2 right-2 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">{site.type}</div>
                       </div>
                       <div className="mt-2 space-y-0.5">
                         <p className="text-sm font-semibold">{site.name}</p>
@@ -173,13 +146,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                   {center.instructors.map((instructor) => (
                     <div key={instructor.id} className="space-y-2">
                       <div className="relative aspect-square overflow-hidden rounded-2xl">
-                        <Image
-                          src={instructor.image}
-                          alt={instructor.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 50vw, 25vw"
-                        />
+                        <Image src={instructor.image} alt={instructor.name} fill className="object-cover" sizes="(max-width: 640px) 50vw, 25vw" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold leading-tight">{instructor.name}</p>
@@ -192,69 +159,104 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                 </div>
               </section>
 
+              {/* Reviews */}
+              <section className="space-y-4">
+                <h3 className="font-semibold text-lg">What people are saying</h3>
+                <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory">
+                  {center.reviews.map((review, i) => (
+                    <div key={i} className="flex-none w-72 snap-start rounded-2xl border bg-background p-5 shadow-sm space-y-3">
+                      {/* Meta */}
+                      <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                        <div className="flex">
+                          {Array.from({ length: review.rating }, (_, j) => (
+                            <Star key={j} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                        <span className="text-muted-foreground/40">|</span>
+                        <span>{review.daysAgo}</span>
+                        <span className="text-muted-foreground/40">|</span>
+                        <span>{review.courseType}</span>
+                      </div>
+                      {/* Title */}
+                      <p className="font-bold text-base leading-snug">{review.title}</p>
+                      {/* Text */}
+                      <p className="text-sm text-muted-foreground leading-relaxed">&ldquo;{review.text}&rdquo;</p>
+                      {/* Reviewer */}
+                      <div className="flex items-center gap-3 pt-1 border-t">
+                        <div className="h-10 w-10 shrink-0 rounded-full bg-muted" />
+                        <div>
+                          <p className="text-sm font-semibold">{review.reviewerName}</p>
+                          <p className="text-xs text-muted-foreground">{review.reviewerLocation}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
             </TabsContent>
 
-            {/* Courses */}
-            <TabsContent value="courses" className="space-y-3 pt-4">
-              {COURSES.map((course) => (
-                <Card key={course.id}>
-                  <CardContent className="flex items-center justify-between p-4">
-                    <div>
-                      <p className="font-semibold">{course.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {course.days} days · <Badge variant="outline" className="text-xs">{course.level}</Badge>
+            {/* ── Courses ── */}
+            <TabsContent value="courses" className="pt-4">
+              <CardCarousel cardWidth={192}>
+                {COURSES.map((course) => (
+                  <Link key={course.id} href={`/book/course/${course.id}`} className="flex-none w-48 snap-start group block">
+                    <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
+                      <Image src={course.image} alt={course.name} fill className="object-cover transition-transform duration-300 group-hover:scale-105" sizes="192px" />
+                    </div>
+                    <div className="mt-3 space-y-1">
+                      <p className="text-base font-bold tracking-tight leading-tight">{course.name}</p>
+                      <p className="text-sm text-muted-foreground">{course.days} days · {course.level}</p>
+                      <p className="text-sm font-semibold">${course.price}</p>
+                    </div>
+                  </Link>
+                ))}
+              </CardCarousel>
+            </TabsContent>
+
+            {/* ── Fun Dives ── */}
+            <TabsContent value="fun-dives" className="pt-4">
+              <CardCarousel cardWidth={192}>
+                {FUN_DIVES.map((dive) => (
+                  <Link key={dive.id} href={`/book/fun-dive/${dive.id}`} className="flex-none w-48 snap-start group block">
+                    <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
+                      <Image src={dive.image} alt={dive.name} fill className="object-cover transition-transform duration-300 group-hover:scale-105" sizes="192px" />
+                    </div>
+                    <div className="mt-3 space-y-1">
+                      <p className="text-base font-bold tracking-tight leading-tight">{dive.name}</p>
+                      <p className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <ArrowDown className="h-3.5 w-3.5 shrink-0" />{dive.depth} · {dive.duration}
                       </p>
+                      <p className="text-sm font-semibold">${dive.price}</p>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="font-semibold">${course.price}</span>
-                      <Button size="sm" asChild>
-                        <Link href={`/book/course/${course.id}`}>Book</Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  </Link>
+                ))}
+              </CardCarousel>
             </TabsContent>
 
-            {/* Fun Dives */}
-            <TabsContent value="fun-dives" className="space-y-3 pt-4">
-              {FUN_DIVES.map((dive) => (
-                <Card key={dive.id}>
-                  <CardContent className="flex items-center justify-between p-4">
-                    <div>
-                      <p className="font-semibold">{dive.name}</p>
-                      <p className="text-sm text-muted-foreground">{dive.depth} · {dive.duration}</p>
-                      <p className="text-xs text-muted-foreground">Min: {dive.minCert}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="font-semibold">${dive.price}</span>
-                      <Button size="sm" asChild>
-                        <Link href={`/book/fun-dive/${dive.id}`}>Book</Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </TabsContent>
-
-            {/* Reviews */}
+            {/* ── Reviews tab (full list) ── */}
             <TabsContent value="reviews" className="space-y-3 pt-4">
-              {[
-                { name: "Alex T.",  rating: 5, text: "Incredible experience. The guides knew every corner of the reef." },
-                { name: "Marie L.", rating: 5, text: "Professional, safe, and genuinely passionate about the ocean." },
-                { name: "James K.", rating: 4, text: "Great dive centre, small groups which made a big difference." },
-              ].map((review, i) => (
+              {center.reviews.map((review, i) => (
                 <Card key={i}>
-                  <CardContent className="p-4 space-y-1">
+                  <CardContent className="p-4 space-y-2">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">{review.name}</p>
                       <div className="flex">
                         {Array.from({ length: review.rating }, (_, j) => (
                           <Star key={j} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
+                      <span className="text-xs text-muted-foreground">{review.daysAgo}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">{review.text}</p>
+                    <p className="font-semibold text-sm">{review.title}</p>
+                    <p className="text-sm text-muted-foreground">&ldquo;{review.text}&rdquo;</p>
+                    <div className="flex items-center gap-2 pt-1">
+                      <div className="h-7 w-7 rounded-full bg-muted shrink-0" />
+                      <div>
+                        <p className="text-xs font-medium">{review.reviewerName}</p>
+                        <p className="text-[10px] text-muted-foreground">{review.reviewerLocation}</p>
+                      </div>
+                      <Badge variant="outline" className="ml-auto text-[10px]">{review.courseType}</Badge>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -264,10 +266,41 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
 
         {/* ── Sidebar ── */}
         <div className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+
+          {/* Map */}
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="block">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl cursor-pointer group border">
+              {/* Map-like dot-grid background */}
+              <div
+                className="absolute inset-0 bg-[#dde8d8]"
+                style={{
+                  backgroundImage: "radial-gradient(circle, #b8ccb0 1px, transparent 1px), linear-gradient(#c8d8c0 1px, transparent 1px), linear-gradient(90deg, #c8d8c0 1px, transparent 1px)",
+                  backgroundSize: "18px 18px, 54px 54px, 54px 54px",
+                }}
+              />
+              {/* Road lines */}
+              <div className="absolute top-[45%] left-0 right-0 h-[3px] bg-white/70 rounded-full" />
+              <div className="absolute top-0 bottom-0 left-[30%] w-[3px] bg-white/70 rounded-full" />
+              {/* Pin */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 ring-4 ring-primary/10">
+                  <MapPin className="h-5 w-5 text-primary" />
+                </div>
+              </div>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+              <div className="absolute bottom-0 inset-x-0 flex justify-center pb-2.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="flex items-center gap-1 text-[11px] font-medium bg-white/95 px-3 py-1 rounded-full shadow-sm">
+                  <ExternalLink className="h-3 w-3" />
+                  Open in Google Maps
+                </span>
+              </div>
+            </div>
+          </a>
+
+          {/* Contact card */}
           <Card>
             <CardContent className="p-5 space-y-4">
-
-              {/* Hours */}
               <div className="flex items-start gap-3">
                 <Clock className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
                 <div>
@@ -275,10 +308,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                   <p className="text-sm text-muted-foreground">Mon–Sun: 7:00 AM – 6:00 PM</p>
                 </div>
               </div>
-
               <div className="border-t" />
-
-              {/* Phone + Call button */}
               <div className="flex items-start gap-3">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
                 <div className="flex-1 space-y-2">
@@ -289,26 +319,17 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                   </Button>
                 </div>
               </div>
-
               <div className="border-t" />
-
-              {/* Website */}
               <div className="flex items-start gap-3">
                 <Globe className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
                 <div className="flex-1 space-y-1">
                   <p className="text-sm font-medium">Website</p>
-                  <a
-                    href={center.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-sm text-primary hover:underline"
-                  >
+                  <a href={center.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-primary hover:underline">
                     {center.website.replace("https://", "")}
                     <ExternalLink className="h-3 w-3 shrink-0" />
                   </a>
                 </div>
               </div>
-
             </CardContent>
           </Card>
         </div>
