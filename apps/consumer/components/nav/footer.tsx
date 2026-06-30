@@ -24,7 +24,7 @@ export default function Footer() {
   return (
     <footer className="border-t bg-background">
       <div className="mx-auto max-w-screen-2xl px-4 py-12">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
@@ -74,6 +74,28 @@ export default function Footer() {
               <li className="pt-1">
                 <Link href="/for-operators" className="hover:text-foreground transition-colors font-medium text-foreground/80">
                   List your dive centre →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support links */}
+          <div className="space-y-4">
+            <p className="text-sm font-semibold">Support</p>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li>
+                <Link href="/contact" className="hover:text-foreground transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/help" className="hover:text-foreground transition-colors">
+                  Help
+                </Link>
+              </li>
+              <li>
+                <Link href="/faqs" className="hover:text-foreground transition-colors">
+                  FAQs
                 </Link>
               </li>
             </ul>

@@ -21,7 +21,7 @@ export default function CreatureCard({ id, name, tagline, image }: CreatureCardP
         />
       </div>
       <div className="mt-3 space-y-1">
-        <p className="text-xl font-bold tracking-tight">{name}</p>
+        <p className="text-base font-bold tracking-tight">{name}</p>
         <p className="text-sm text-muted-foreground">{tagline}</p>
       </div>
     </Link>

@@ -23,7 +23,7 @@ export default function LocationCard({ id, name, country, image }: LocationCardP
         />
       </div>
       <div className="mt-3 space-y-1">
-        <p className="text-xl font-bold tracking-tight">{name}</p>
+        <p className="text-base font-bold tracking-tight">{name}</p>
         <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <MapPin className="h-3.5 w-3.5 shrink-0" />
           {country}

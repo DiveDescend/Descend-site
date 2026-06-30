@@ -2,31 +2,49 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import StepIndicator from "@/components/shared/step-indicator";
-import { AlertTriangle, Minus, Plus } from "lucide-react";
+import RangePicker, { shortDate } from "@/components/shared/range-picker";
+import { AlertTriangle } from "lucide-react";
 import { FUN_DIVES } from "@/lib/mock-data";
 
 const EQUIPMENT = [
-  { id: "wetsuit", label: "Wetsuit" },
-  { id: "bcd", label: "BCD" },
-  { id: "regulator", label: "Regulator" },
-  { id: "mask", label: "Mask" },
-  { id: "fins", label: "Fins" },
-  { id: "tank", label: "Tank" },
+  { id: "wetsuit",    label: "Wetsuit" },
+  { id: "bcd",        label: "BCD" },
+  { id: "regulator",  label: "Regulator" },
+  { id: "mask",       label: "Mask" },
+  { id: "fins",       label: "Fins" },
+  { id: "tank",       label: "Tank" },
 ];
 
 const STEP_LABELS = ["Dates", "Certification", "Equipment", "Checkout"];
 
+function diffDays(from: string, to: string) {
+  const a = new Date(from), b = new Date(to);
+  return Math.max(1, Math.round((b.getTime() - a.getTime()) / 86400000));
+}
+
 export default function FunDiveBookingPage({ params }: { params: { id: string } }) {
   const dive = FUN_DIVES.find((d) => d.id === params.id) ?? FUN_DIVES[0];
-  const [step, setStep] = useState(1);
-  const [days, setDays] = useState(1);
+  const [step, setStep]           = useState(1);
+  const [dateFrom, setDateFrom]   = useState("");
+  const [dateTo, setDateTo]       = useState("");
   const [flightAck, setFlightAck] = useState(false);
-  const [certAck, setCertAck] = useState(false);
+  const [certAck, setCertAck]     = useState(false);
   const [equipment, setEquipment] = useState<string[]>(EQUIPMENT.map((e) => e.id));
+
+  const days = dateFrom && dateTo ? diffDays(dateFrom, dateTo) : 1;
+
+  function handleDateSelect(iso: string) {
+    if (!dateFrom || (dateFrom && dateTo)) {
+      setDateFrom(iso); setDateTo("");
+    } else if (iso < dateFrom) {
+      setDateFrom(iso); setDateTo("");
+    } else {
+      setDateTo(iso);
+    }
+  }
 
   const toggleEquipment = (id: string) => {
     setEquipment((prev) =>
@@ -34,8 +52,12 @@ export default function FunDiveBookingPage({ params }: { params: { id: string } 
     );
   };
 
+  const dateLabel = dateFrom && dateTo
+    ? `${shortDate(dateFrom)} – ${shortDate(dateTo)}`
+    : dateFrom ? `${shortDate(dateFrom)} – ?` : null;
+
   return (
-    <div className="mx-auto max-w-lg px-4 py-8 space-y-6">
+    <div className="mx-auto max-w-2xl px-4 py-8 space-y-6">
       <div>
         <h1 className="text-2xl font-bold">{dive.name}</h1>
         <p className="text-muted-foreground">{dive.depth} · {dive.duration}</p>
@@ -45,31 +67,19 @@ export default function FunDiveBookingPage({ params }: { params: { id: string } 
 
       {step === 1 && (
         <Card>
-          <CardHeader><CardTitle>Select your dates</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>Select your dates</CardTitle>
+            {dateLabel && (
+              <p className="text-sm text-muted-foreground">{dateLabel} · {days} day{days !== 1 ? "s" : ""}</p>
+            )}
+          </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Start date</label>
-              <Input type="date" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Number of days</label>
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setDays(Math.max(1, days - 1))}
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <span className="w-8 text-center font-semibold">{days}</span>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setDays(days + 1)}
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
+            <div className="rounded-2xl border overflow-hidden">
+              <RangePicker
+                dateFrom={dateFrom}
+                dateTo={dateTo}
+                onSelect={handleDateSelect}
+              />
             </div>
             <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 space-y-2">
               <p className="flex items-center gap-2 text-sm font-medium text-yellow-800">
@@ -89,7 +99,7 @@ export default function FunDiveBookingPage({ params }: { params: { id: string } 
             </div>
             <Button
               className="w-full"
-              disabled={!flightAck}
+              disabled={!flightAck || !dateFrom || !dateTo}
               onClick={() => setStep(2)}
             >
               Continue
@@ -131,19 +141,14 @@ export default function FunDiveBookingPage({ params }: { params: { id: string } 
 
       {step === 3 && (
         <Card>
-          <CardHeader>
-            <CardTitle>Equipment</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle>Equipment</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
               All equipment is included by default. Deselect items you&apos;re bringing yourself.
             </p>
             <div className="space-y-3">
               {EQUIPMENT.map((item) => (
-                <label
-                  key={item.id}
-                  className="flex items-center justify-between cursor-pointer"
-                >
+                <label key={item.id} className="flex items-center justify-between cursor-pointer">
                   <span className="text-sm">{item.label}</span>
                   <Checkbox
                     checked={equipment.includes(item.id)}
@@ -170,6 +175,10 @@ export default function FunDiveBookingPage({ params }: { params: { id: string } 
                 <span>${dive.price}</span>
               </div>
               <div className="flex justify-between">
+                <span className="text-muted-foreground">Dates</span>
+                <span>{dateLabel}</span>
+              </div>
+              <div className="flex justify-between">
                 <span className="text-muted-foreground">Duration</span>
                 <span>{days} day{days > 1 ? "s" : ""}</span>
               </div>
@@ -182,9 +191,7 @@ export default function FunDiveBookingPage({ params }: { params: { id: string } 
                 <span>${dive.price * days}</span>
               </div>
             </div>
-            <Button disabled className="w-full" size="lg">
-              Payment — coming soon
-            </Button>
+            <Button disabled className="w-full" size="lg">Payment — coming soon</Button>
             <Button variant="outline" className="w-full" onClick={() => setStep(3)}>Back</Button>
           </CardContent>
         </Card>
