@@ -268,17 +268,17 @@ export const INSTRUCTORS = [
 ];
 
 export const COURSES = [
-  { id: "1", name: "Open Water Diver",    level: "Beginner",     days: 4,  price: 450,  description: "Your first step into the underwater world.",              image: u("1541123437800-1bb1317badc2") },
-  { id: "2", name: "Advanced Open Water", level: "Intermediate", days: 3,  price: 380,  description: "Deepen your skills with 5 adventure dives.",              image: u("1518020382113-a7e8fc38eac9") },
+  { id: "1", name: "Open Water Diver",    level: "Beginner",     days: 4,  price: 450,  description: "Your first step into the underwater world.",              image: u("1742461399600-3ded0fe5bb0e") },
+  { id: "2", name: "Advanced Open Water", level: "Intermediate", days: 3,  price: 380,  description: "Deepen your skills with 5 adventure dives.",              image: u("1510637858650-c3be04731622") },
   { id: "3", name: "Rescue Diver",        level: "Advanced",     days: 4,  price: 520,  description: "Learn to prevent and manage dive emergencies.",            image: u("1559825481-12a05cc00344") },
   { id: "4", name: "Divemaster",          level: "Professional", days: 30, price: 1200, description: "Your first professional-level certification.",             image: u("1559827260-dc66d52bef19") },
   { id: "5", name: "Nitrox Specialty",    level: "Specialty",    days: 2,  price: 220,  description: "Dive longer with enriched-air nitrox.",                   image: u("1524704654690-b56c05c78a00") },
 ];
 
 export const FUN_DIVES = [
-  { id: "1", name: "Blue Corner Wall",  depth: "15–40m", duration: "2 dives", price: 120, minCert: "Advanced Open Water", image: u("1526478806334-5fd488fcaabc") },
+  { id: "1", name: "Blue Corner Wall",  depth: "15–40m", duration: "2 dives", price: 120, minCert: "Advanced Open Water", image: u("1682687981907-170c006e3744") },
   { id: "2", name: "Manta Ray Point",   depth: "8–25m",  duration: "2 dives", price: 110, minCert: "Open Water",          image: u("1542443605-fcefd6550d4a") },
-  { id: "3", name: "WWII Wreck Dive",   depth: "18–35m", duration: "1 dive",  price: 95,  minCert: "Advanced Open Water", image: u("1596451190630-186aff535bf2") },
+  { id: "3", name: "WWII Wreck Dive",   depth: "18–35m", duration: "1 dive",  price: 95,  minCert: "Advanced Open Water", image: u("1758968611255-af2c6f31370a") },
   { id: "4", name: "Night Reef Dive",   depth: "5–18m",  duration: "1 dive",  price: 85,  minCert: "Open Water",          image: u("1504450874802-0ba2bcd9b5ae") },
   { id: "5", name: "Shark Drift Dive",  depth: "20–40m", duration: "2 dives", price: 130, minCert: "Advanced Open Water", image: u("1491438590914-bc09024cb91d") },
 ];

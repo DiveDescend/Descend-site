@@ -33,6 +33,13 @@ const DIVE_TYPE_ICONS: Record<string, React.FC<{ className?: string }>> = {
 
 const Divider = () => <div className="border-t" />;
 
+function shortAge(str: string): string {
+  const m = str.match(/(\d+)\s+(day|week|month|year)s?/i);
+  if (!m) return str;
+  const map: Record<string, string> = { day: "d", week: "w", month: "mo", year: "y" };
+  return `${m[1]}${map[m[2].toLowerCase()]}`;
+}
+
 export default function DiveCenterProfilePage({ params }: { params: { id: string } }) {
   const center    = DIVE_CENTERS.find((dc) => dc.id === params.id) ?? DIVE_CENTERS[0];
   const mapsUrl   = `https://www.google.com/maps?q=${center.coordinates.lat},${center.coordinates.lng}`;
@@ -62,7 +69,6 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
           <div className="flex items-center gap-1.5">
             <Star className="h-4 w-4 fill-foreground text-foreground" />
             <span className="font-semibold">{center.rating.toFixed(1)}</span>
-            <span className="text-muted-foreground text-sm">({center.reviewCount} reviews)</span>
           </div>
           <div className="flex items-center gap-3">
             {center.certifications.map((cert) =>
@@ -278,7 +284,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                           <Star key={j} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
                         ))}
                       </div>
-                      <span className="text-xs text-muted-foreground">{review.daysAgo}</span>
+                      <span className="text-xs text-muted-foreground">{shortAge(review.daysAgo)}</span>
                     </div>
                     <p className="font-semibold text-sm">{review.title}</p>
                     <p className="text-sm text-muted-foreground">&ldquo;{review.text}&rdquo;</p>
@@ -376,8 +382,19 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
 
       {/* ── Full-width reviews ── */}
       <div className="border-t pt-8 space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">What people are saying</h2>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="space-y-1.5">
+            <h2 className="text-xl font-semibold">What people are saying</h2>
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {Array.from({ length: Math.round(center.rating) }, (_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-sm font-semibold">{center.rating.toFixed(1)}</span>
+              <span className="text-sm text-muted-foreground">· {center.reviewCount.toLocaleString()} reviews</span>
+            </div>
+          </div>
           <button onClick={() => setTab("reviews")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             View all
           </button>
@@ -392,7 +409,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                   ))}
                 </div>
                 <span className="text-muted-foreground/40">|</span>
-                <span>{review.daysAgo}</span>
+                <span>{shortAge(review.daysAgo)}</span>
                 <span className="text-muted-foreground/40">|</span>
                 <span>{review.courseType}</span>
               </div>
