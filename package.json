@@ -7,9 +7,12 @@
     "lint": "turbo lint"
   },
   "devDependencies": {
+    "prettier": "^3",
     "turbo": "latest",
-    "typescript": "^5",
-    "prettier": "^3"
+    "typescript": "^5"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.8.0",
+  "dependencies": {
+    "agentation": "^3.0.2"
+  }
 }
