@@ -68,7 +68,7 @@ function WherePanel({ style, filtered, onSelect }: {
   return (
     <div style={style} className="w-96 rounded-3xl border bg-background shadow-lg">
       <div className="p-4">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        <p className="mb-3 text-xs font-semibold text-muted-foreground">
           Suggested destinations
         </p>
         <div className="space-y-0.5">

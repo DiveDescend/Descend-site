@@ -44,7 +44,7 @@ export const DIVE_CENTERS = [
     diveSites: [
       { id: "s1", name: "Temple Reef",       depth: "8–20m",  type: "Reef",  image: u("1682687982360-3fbab65f9d50") },
       { id: "s2", name: "Danny's Eel Garden", depth: "5–15m",  type: "Reef",  image: u("1544551763-46a013bb70d5") },
-      { id: "s3", name: "S.S. Iris Wreck",   depth: "14–28m", type: "Wreck", image: u("1596451190630-186aff535bf2") },
+      { id: "s3", name: "S.S. Iris Wreck",   depth: "14–28m", type: "Wreck", image: u("1510637858650-c3be04731622") },
       { id: "s4", name: "Lighthouse Rock",   depth: "6–18m",  type: "Reef",  image: u("1524704654690-b56c05c78a00") },
     ],
     reviews: [
@@ -75,10 +75,10 @@ export const DIVE_CENTERS = [
     amenities: ["Showers", "Lockers", "Boat Dives", "Accommodation", "Nitrox Fills", "Equipment Rental", "Shuttle Service", "First Aid"],
     diveTypes: ["Reef Dive", "Wall Dive", "Deep Dive", "Wreck Dive", "Drift Dive", "Night Dive", "Liveaboard"],
     diveSites: [
-      { id: "s1", name: "North Bay Reef",     depth: "5–22m",  type: "Reef", image: u("1518020382113-a7e8fc38eac9") },
-      { id: "s2", name: "Cinque Island",       depth: "10–30m", type: "Wall", image: u("1526478806334-5fd488fcaabc") },
+      { id: "s1", name: "North Bay Reef",     depth: "5–22m",  type: "Reef", image: u("1682687981907-170c006e3744") },
+      { id: "s2", name: "Cinque Island",       depth: "10–30m", type: "Wall", image: u("1505118380757-91f5f5632de0") },
       { id: "s3", name: "The Lighthouse Reef", depth: "6–20m",  type: "Reef", image: u("1559825481-12a05cc00344") },
-      { id: "s4", name: "Rutland Island Wall", depth: "15–35m", type: "Wall", image: u("1504450874802-0ba2bcd9b5ae") },
+      { id: "s4", name: "Rutland Island Wall", depth: "15–35m", type: "Wall", image: u("1439405326854-014607f694d7") },
     ],
     reviews: [
       { rating: 5, daysAgo: "5 days ago",   courseType: "Liveaboard",        title: "Andaman's Best Liveaboard Operator", text: "Three days on the liveaboard with Seahawks was the pinnacle of my diving career. The crew, the sites, the food — everything was exceptional. Cinque Island at sunrise is something I'll carry forever.", reviewerName: "David K.", reviewerLocation: "London, UK" },
@@ -175,8 +175,8 @@ export const DIVE_CENTERS = [
     diveTypes: ["Reef Dive", "Deep Dive", "Drift Dive", "Wall Dive", "Liveaboard", "Photography Dive"],
     diveSites: [
       { id: "s1", name: "Manta Ray Point", depth: "10–25m", type: "Reef", image: u("1682687982360-3fbab65f9d50") },
-      { id: "s2", name: "Bangaram Lagoon", depth: "5–20m",  type: "Reef", image: u("1596451190630-186aff535bf2") },
-      { id: "s3", name: "Periyapani Reef", depth: "8–30m",  type: "Wall", image: u("1518020382113-a7e8fc38eac9") },
+      { id: "s2", name: "Bangaram Lagoon", depth: "5–20m",  type: "Reef", image: u("1507525428034-b723cf961d3e") },
+      { id: "s3", name: "Periyapani Reef", depth: "8–30m",  type: "Wall", image: u("1544551763-46a013bb70d5") },
     ],
     reviews: [
       { rating: 5, daysAgo: "6 days ago",   courseType: "Liveaboard",        title: "Lakshadweep on a Liveaboard", text: "There are no words for what Lacadives shows you out here. Uninhabited atolls, manta rays at the cleaning station, sharks on every dive. The liveaboard vessel is comfortable and the crew is phenomenal. Book a year in advance.", reviewerName: "Rachel C.", reviewerLocation: "San Francisco, USA" },
@@ -208,8 +208,8 @@ export const DIVE_CENTERS = [
     diveSites: [
       { id: "s1", name: "Elephant Beach Reef", depth: "5–18m",  type: "Reef",  image: u("1544551763-46a013bb70d5") },
       { id: "s2", name: "Lighthouse Wall",      depth: "10–30m", type: "Wall",  image: u("1524704654690-b56c05c78a00") },
-      { id: "s3", name: "WWII Wreck",           depth: "18–35m", type: "Wreck", image: u("1526478806334-5fd488fcaabc") },
-      { id: "s4", name: "Dugong Reef",          depth: "8–20m",  type: "Reef",  image: u("1504450874802-0ba2bcd9b5ae") },
+      { id: "s3", name: "WWII Wreck",           depth: "18–35m", type: "Wreck", image: u("1758968611255-af2c6f31370a") },
+      { id: "s4", name: "Dugong Reef",          depth: "8–20m",  type: "Reef",  image: u("1437622368342-7a3d73a34c8f") },
     ],
     reviews: [
       { rating: 5, daysAgo: "2 days ago",  courseType: "Fun Dive",    title: "The Dugong Encounter I'll Never Forget", text: "We spent 20 minutes with a dugong at Dugong Reef. He just went about his business completely unbothered by us. Dive India's guides know exactly when and where to find these animals — the timing was perfect.", reviewerName: "Suresh B.", reviewerLocation: "Chennai, India" },
@@ -296,18 +296,28 @@ export const INSTRUCTORS: Instructor[] = [
   { id: "12", name: "Lena Thomas",     title: "Master Scuba Diver",              category: "Dive Buddy", agency: "NAUI", location: "Port Blair, Andaman",       image: u("1438761681033-6461ffad8d80", 600), courses: [],                                                                            skills: ["Wreck Dives", "Underwater Photography", "Liveaboard Trips"],     dives: 500,  years: 8,  rating: 4.8, reviews: 40,                   bio: "Photographer and liveaboard regular based in Port Blair. Always keen to buddy up for Cinque Island and Rutland trips." },
 ];
 
+export const COURSE_LEVELS = ["Beginner", "Intermediate", "Advanced", "Specialty", "Professional"];
+
 export const COURSES = [
-  { id: "1", name: "Open Water Diver",    level: "Beginner",     days: 4,  price: 450,  description: "Your first step into the underwater world.",              image: u("1742461399600-3ded0fe5bb0e") },
-  { id: "2", name: "Advanced Open Water", level: "Intermediate", days: 3,  price: 380,  description: "Deepen your skills with 5 adventure dives.",              image: u("1510637858650-c3be04731622") },
-  { id: "3", name: "Rescue Diver",        level: "Advanced",     days: 4,  price: 520,  description: "Learn to prevent and manage dive emergencies.",            image: u("1559825481-12a05cc00344") },
-  { id: "4", name: "Divemaster",          level: "Professional", days: 30, price: 1200, description: "Your first professional-level certification.",             image: u("1559827260-dc66d52bef19") },
-  { id: "5", name: "Nitrox Specialty",    level: "Specialty",    days: 2,  price: 220,  description: "Dive longer with enriched-air nitrox.",                   image: u("1524704654690-b56c05c78a00") },
+  { id: "1",  name: "Open Water Diver",     agency: "PADI", level: "Beginner",     days: 4,  price: 450,  description: "Your first step into the underwater world.",               image: u("1742461399600-3ded0fe5bb0e") },
+  { id: "2",  name: "Advanced Open Water",  agency: "PADI", level: "Intermediate", days: 3,  price: 380,  description: "Deepen your skills with 5 adventure dives.",               image: u("1510637858650-c3be04731622") },
+  { id: "3",  name: "Rescue Diver",         agency: "PADI", level: "Advanced",     days: 4,  price: 520,  description: "Learn to prevent and manage dive emergencies.",             image: u("1559825481-12a05cc00344") },
+  { id: "4",  name: "Divemaster",           agency: "PADI", level: "Professional", days: 30, price: 1200, description: "Your first professional-level certification.",              image: u("1559827260-dc66d52bef19") },
+  { id: "5",  name: "Nitrox Specialty",     agency: "PADI", level: "Specialty",    days: 2,  price: 220,  description: "Dive longer with enriched-air nitrox.",                    image: u("1524704654690-b56c05c78a00") },
+  { id: "6",  name: "Deep Diver Specialty", agency: "PADI", level: "Specialty",    days: 2,  price: 280,  description: "Train for dives down to 40 metres.",                       image: u("1682687981907-170c006e3744") },
+  { id: "7",  name: "Open Water Diver",     agency: "SSI",  level: "Beginner",     days: 4,  price: 420,  description: "SSI's entry-level certification, recognised worldwide.",   image: u("1544551763-46a013bb70d5") },
+  { id: "8",  name: "Advanced Adventurer",  agency: "SSI",  level: "Intermediate", days: 2,  price: 350,  description: "Try five adventure dives and extend your depth to 30m.",   image: u("1542443605-fcefd6550d4a") },
+  { id: "9",  name: "Diver Stress & Rescue", agency: "SSI", level: "Advanced",     days: 3,  price: 480,  description: "Recognise stress and manage emergencies with confidence.", image: u("1439405326854-014607f694d7") },
+  { id: "10", name: "Enriched Air Nitrox",  agency: "SSI",  level: "Specialty",    days: 1,  price: 180,  description: "Extend your bottom time with enriched air.",               image: u("1657989602604-7087c5787ea9") },
+  { id: "11", name: "Scuba Diver",          agency: "NAUI", level: "Beginner",     days: 5,  price: 430,  description: "NAUI's thorough first certification course.",              image: u("1682687982360-3fbab65f9d50") },
+  { id: "12", name: "Advanced Scuba Diver", agency: "NAUI", level: "Intermediate", days: 3,  price: 360,  description: "Build experience across six different dive activities.",   image: u("1544552866-fef1d68c69b5") },
+  { id: "13", name: "Master Scuba Diver",   agency: "NAUI", level: "Advanced",     days: 5,  price: 550,  description: "NAUI's highest recreational rating — theory and skills.",  image: u("1540202404-b2979d19ed37") },
 ];
 
 export const FUN_DIVES = [
   { id: "1", name: "Blue Corner Wall",  depth: "15–40m", duration: "2 dives", price: 120, minCert: "Advanced Open Water", image: u("1682687981907-170c006e3744") },
   { id: "2", name: "Manta Ray Point",   depth: "8–25m",  duration: "2 dives", price: 110, minCert: "Open Water",          image: u("1542443605-fcefd6550d4a") },
   { id: "3", name: "WWII Wreck Dive",   depth: "18–35m", duration: "1 dive",  price: 95,  minCert: "Advanced Open Water", image: u("1758968611255-af2c6f31370a") },
-  { id: "4", name: "Night Reef Dive",   depth: "5–18m",  duration: "1 dive",  price: 85,  minCert: "Open Water",          image: u("1504450874802-0ba2bcd9b5ae") },
+  { id: "4", name: "Night Reef Dive",   depth: "5–18m",  duration: "1 dive",  price: 85,  minCert: "Open Water",          image: u("1742461399600-3ded0fe5bb0e") },
   { id: "5", name: "Shark Drift Dive",  depth: "20–40m", duration: "2 dives", price: 130, minCert: "Advanced Open Water", image: u("1491438590914-bc09024cb91d") },
 ];

@@ -70,7 +70,7 @@ export default function InstructorsPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Course</span>
+          <span className="text-xs font-semibold text-muted-foreground">Course</span>
           {INSTRUCTOR_COURSES.map((c) => (
             <Badge
               key={c}
@@ -82,7 +82,7 @@ export default function InstructorsPage() {
             </Badge>
           ))}
           <span className="mx-1 h-4 w-px bg-border" />
-          <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Agency</span>
+          <span className="text-xs font-semibold text-muted-foreground">Agency</span>
           {INSTRUCTOR_AGENCIES.map((a) => (
             <Badge
               key={a}

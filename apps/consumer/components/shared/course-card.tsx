@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const CERT_ICONS: Record<string, string> = {
+  PADI: "/padi.svg",
+  SSI:  "/ssi.svg",
+  NAUI: "/naui.svg",
+};
+
 interface CourseCardProps {
   id: string;
   name: string;
@@ -8,9 +14,10 @@ interface CourseCardProps {
   days: number;
   price: number;
   image: string;
+  agency?: string;
 }
 
-export default function CourseCard({ id, name, level, days, price, image }: CourseCardProps) {
+export default function CourseCard({ id, name, level, days, price, image, agency }: CourseCardProps) {
   return (
     <Link href={`/book/course/${id}`} className="group block">
       <div className="relative aspect-square overflow-hidden rounded-2xl">
@@ -23,7 +30,12 @@ export default function CourseCard({ id, name, level, days, price, image }: Cour
         />
       </div>
       <div className="mt-3 space-y-1">
-        <p className="text-base font-bold tracking-tight leading-tight">{name}</p>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-base font-bold tracking-tight leading-tight">{name}</p>
+          {agency && CERT_ICONS[agency] && (
+            <Image src={CERT_ICONS[agency]} alt={agency} width={22} height={22} className="shrink-0" />
+          )}
+        </div>
         <p className="text-sm text-muted-foreground">{days} days · {level}</p>
         <p className="text-sm font-semibold">${price}</p>
       </div>

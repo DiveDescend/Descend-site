@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { Anchor, BookOpen, LayoutGrid, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -28,14 +29,21 @@ export default function CategoryTabs() {
               key={id}
               href={href}
               className={cn(
-                "flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-colors sm:px-4",
+                "relative flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-colors sm:px-4",
                 active
-                  ? "bg-primary text-primary-foreground"
+                  ? "text-primary-foreground"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
-              <Icon className="h-4 w-4" strokeWidth={1.75} />
-              <span className={cn(!active && "hidden sm:inline")}>{label}</span>
+              {active && (
+                <motion.span
+                  layoutId="category-tab-pill"
+                  className="absolute inset-0 rounded-full bg-primary"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                />
+              )}
+              <Icon className="relative z-10 h-4 w-4" strokeWidth={1.75} />
+              <span className={cn("relative z-10", !active && "hidden sm:inline")}>{label}</span>
             </Link>
           );
         })}
