@@ -3,9 +3,9 @@ const u = (id: string, w = 800) =>
 
 export const LOCATIONS = [
   { id: "1",  name: "Havelock Island",     country: "Andaman & Nicobar", diveCount: 480, image: u("1586053226626-febc8817962f") },
-  { id: "2",  name: "Pondicherry",          country: "Tamil Nadu",         diveCount: 310, image: u("1716660164121-44146d72dd76") },
+  { id: "2",  name: "Pondicherry",          country: "Tamil Nadu",         diveCount: 310, image: "/locations/pondicherry.avif" },
   { id: "3",  name: "Lakshadweep Islands",  country: "Lakshadweep",        diveCount: 220, image: u("1572431447238-425af66a273b") },
-  { id: "4",  name: "Goa",                  country: "Goa",                diveCount: 195, image: u("1590393275627-0c48482c60e3") },
+  { id: "4",  name: "Goa",                  country: "Goa",                diveCount: 195, image: "/locations/goa.jpg" },
   { id: "5",  name: "Netrani Island",       country: "Karnataka",          diveCount: 95,  image: u("1691074428211-a0d783a37102") },
   { id: "6",  name: "Neil Island",          country: "Andaman & Nicobar",  diveCount: 240, image: u("1586359716568-3e1907e4cf9f") },
   { id: "7",  name: "Tarkarli",             country: "Maharashtra",        diveCount: 85,  image: u("1652820330085-82a0c2b88d78") },
@@ -38,7 +38,7 @@ export const DIVE_CENTERS = [
     website: "https://templeadventures.com",
     coordinates: { lat: 11.9346, lng: 79.8486 },
     description: "India's pioneering PADI dive centre since 2001 — natural reefs, wrecks, and night dives on the Coromandel Coast.",
-    image: u("1546450301-fdde7ad44ec2"),
+    image: "/dive-centers/temple-adventures.webp",
     amenities: ["Showers", "Lockers", "Equipment Rental", "Nitrox Fills", "Equipment Servicing", "Photo & Video", "Wi-Fi", "Cafeteria"],
     diveTypes: ["Reef Dive", "Night Dive", "Wreck Dive", "Deep Dive", "Photography Dive"],
     diveSites: [
@@ -235,7 +235,7 @@ export const DIVE_CENTERS = [
     website: "https://barefootscuba.in",
     coordinates: { lat: 12.0187, lng: 92.9892 },
     description: "India's first PADI 5 Star IDC Resort, established 2005 on Beach No. 3 — six dive boats, year-round courses from beginner to professional.",
-    image: u("1559827260-dc66d52bef19"),
+    image: "/dive-centers/barefoot-scuba.jpg",
     amenities: ["Showers", "Lockers", "Accommodation", "Equipment Rental", "Nitrox Fills", "Equipment Servicing", "Boat Dives", "Photo & Video", "Cafeteria", "First Aid", "Wi-Fi", "Shuttle Service"],
     diveTypes: ["Reef Dive", "Wall Dive", "Deep Dive", "Drift Dive", "Night Dive", "Wreck Dive", "Photography Dive", "Shark Dive"],
     diveSites: [
