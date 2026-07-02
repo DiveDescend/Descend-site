@@ -258,13 +258,42 @@ export const DIVE_CENTERS = [
   },
 ];
 
-export const INSTRUCTORS = [
-  { id: "1", name: "Marco Rossi",    location: "Raja Ampat, Indonesia",  certifications: ["PADI IDC Staff Instructor", "Rescue Diver"],        divesLed: 1247, rating: 4.9, bio: "15 years diving the Coral Triangle. Specialises in underwater photography and manta encounters.", color: "bg-blue-400" },
-  { id: "2", name: "Sarah Chen",     location: "Maldives",               certifications: ["SSI Instructor Trainer", "Nitrox Specialist"],       divesLed: 892,  rating: 4.8, bio: "Former marine biologist turned dive instructor. Expert in pelagic species and night dives.", color: "bg-teal-400" },
-  { id: "3", name: "David Okafor",   location: "Red Sea, Egypt",         certifications: ["PADI Master Instructor", "Wreck Specialist"],        divesLed: 2103, rating: 5.0, bio: "Wreck diving expert with over 20 years on the Red Sea. Has dived every major WWII wreck in the region.", color: "bg-slate-500" },
-  { id: "4", name: "Yuki Tanaka",    location: "Okinawa, Japan",         certifications: ["NAUI Instructor", "Divemaster"],                     divesLed: 643,  rating: 4.7, bio: "Passionate about reef conservation. Leads regular clean-up dives alongside regular dive programmes.", color: "bg-emerald-400" },
-  { id: "5", name: "Elena Vasquez",  location: "Galápagos, Ecuador",     certifications: ["PADI IDC Staff Instructor", "Shark Research Diver"], divesLed: 1589, rating: 4.9, bio: "Works with the Charles Darwin Research Station. Specialises in hammerhead and whale shark encounters.", color: "bg-cyan-500" },
-  { id: "6", name: "Tom Blackwell",  location: "Palau, Micronesia",      certifications: ["SSI Instructor", "Technical Diver"],                 divesLed: 756,  rating: 4.8, bio: "Technical diving expert who pioneered several deep blue-corner dive routes.", color: "bg-sky-500" },
+export type InstructorCategory = "Instructor" | "Divemaster" | "Dive Buddy";
+
+export interface Instructor {
+  id: string;
+  name: string;
+  title: string;
+  category: InstructorCategory;
+  agency: "PADI" | "SSI" | "NAUI";
+  location: string;
+  image: string;
+  courses: string[];
+  skills: string[];
+  dives: number;
+  years: number;
+  rating: number;
+  reviews: number;
+  topRated?: boolean;
+  bio: string;
+}
+
+export const INSTRUCTOR_COURSES = ["Open Water", "Advanced Open Water", "Rescue Diver", "Divemaster", "Nitrox"];
+export const INSTRUCTOR_AGENCIES = ["PADI", "SSI", "NAUI"] as const;
+
+export const INSTRUCTORS: Instructor[] = [
+  { id: "1",  name: "Arjun Nambiar",   title: "PADI Course Director",            category: "Instructor", agency: "PADI", location: "Havelock Island, Andaman",  image: u("1507003211169-0a1dd7228f2d", 600), courses: ["Open Water", "Advanced Open Water", "Rescue Diver", "Divemaster", "Nitrox"], skills: ["Instructor Development", "Deep Dives", "Wreck Diving"],          dives: 4000, years: 18, rating: 5.0, reviews: 320, topRated: true,  bio: "18 years teaching in the Andamans — trained over 200 dive professionals. Runs IDC programmes and loves a good wreck penetration dive on his days off." },
+  { id: "2",  name: "Meera Krishnan",  title: "Master Scuba Diver Trainer",      category: "Instructor", agency: "PADI", location: "Pondicherry, Tamil Nadu",   image: u("1494790108377-be9c29b29330", 600), courses: ["Open Water", "Advanced Open Water", "Rescue Diver", "Nitrox"],               skills: ["Night Dives", "Reef Ecology", "Underwater Photography"],         dives: 2500, years: 12, rating: 4.9, reviews: 210, topRated: true,  bio: "Former marine biologist who swapped the lab for the Coromandel Coast. Known for calm, patient teaching and encyclopaedic reef knowledge." },
+  { id: "3",  name: "Nikhil Bhandari", title: "SSI Instructor Trainer",          category: "Instructor", agency: "SSI",  location: "Calangute, Goa",            image: u("1500648767791-00dcc994a43e", 600), courses: ["Open Water", "Advanced Open Water", "Rescue Diver", "Divemaster"],           skills: ["Technical Diving", "Sidemount", "Deep Dives"],                   dives: 3000, years: 14, rating: 4.8, reviews: 180,                  bio: "Goa's go-to technical diving instructor. Pioneered several deep routes off Grande Island and teaches everything from first bubbles to sidemount." },
+  { id: "4",  name: "Ishita Sen",      title: "Open Water Scuba Instructor",     category: "Instructor", agency: "PADI", location: "Neil Island, Andaman",      image: u("1534528741775-53994a69daeb", 600), courses: ["Open Water", "Advanced Open Water", "Nitrox"],                               skills: ["Beginner Courses", "Underwater Photography", "Reef Ecology"],    dives: 1200, years: 6,  rating: 4.9, reviews: 140, topRated: true,  bio: "Specialises in first-time divers and nervous swimmers. Half her students arrive terrified and leave planning their Advanced course." },
+  { id: "5",  name: "Farhan Ali",      title: "NAUI Instructor",                 category: "Instructor", agency: "NAUI", location: "Murudeshwar, Karnataka",    image: u("1570295999919-56ceb5ecca61", 600), courses: ["Open Water", "Advanced Open Water", "Rescue Diver"],                         skills: ["Shark Dives", "Drift Dives", "Deep Dives"],                      dives: 1800, years: 9,  rating: 4.7, reviews: 110,                  bio: "Knows Netrani Pinnacle better than anyone. If there are whale sharks in the water, Farhan will find them." },
+  { id: "6",  name: "Zoya Fernandes",  title: "Open Water Scuba Instructor",     category: "Instructor", agency: "PADI", location: "Netrani Island, Karnataka", image: u("1603415526960-f7e0328c63b1", 600), courses: ["Open Water", "Nitrox"],                                                      skills: ["Beginner Courses", "Confined Water Training", "Reef Ecology"],   dives: 800,  years: 4,  rating: 4.8, reviews: 70,                   bio: "Started as a Murudeshwar dive guide, now teaches entry-level courses with an emphasis on buoyancy fundamentals done properly." },
+  { id: "7",  name: "Tara D'Souza",    title: "PADI Divemaster",                 category: "Divemaster", agency: "PADI", location: "Havelock Island, Andaman",  image: u("1544005313-94ddf0286df2", 600),    courses: [],                                                                            skills: ["Dive Guiding", "Night Dives", "Marine Life Spotting"],           dives: 900,  years: 5,  rating: 4.8, reviews: 90,  topRated: true,  bio: "Freelance divemaster guiding across Havelock's best sites. Famous for spotting the tiniest nudibranchs and the shyest octopus." },
+  { id: "8",  name: "Vivaan Kapoor",   title: "SSI Divemaster",                  category: "Divemaster", agency: "SSI",  location: "Grande Island, Goa",        image: u("1472099645785-5658abf4ff4e", 600), courses: [],                                                                            skills: ["Wreck Guiding", "Buoyancy Coaching", "Underwater Photography"],  dives: 700,  years: 4,  rating: 4.6, reviews: 60,                   bio: "Guides the S.S. Ria and Suzy's Wreck several times a week. Happy to shoot photos of your dive on request." },
+  { id: "9",  name: "Karthik Iyer",    title: "NAUI Divemaster",                 category: "Divemaster", agency: "NAUI", location: "Havelock Island, Andaman",  image: u("1582750433449-648ed127bb54", 600), courses: [],                                                                            skills: ["Wall Dives", "Night Dives", "Navigation"],                       dives: 1000, years: 6,  rating: 4.7, reviews: 80,                   bio: "Ex-merchant navy, now a full-time dive guide. Runs early-morning wall dives before the boats crowd in." },
+  { id: "10", name: "Ananya Bhat",     title: "Master Scuba Diver",              category: "Dive Buddy", agency: "PADI", location: "Agatti Island, Lakshadweep", image: u("1580489944761-15a19d654956", 600), courses: [],                                                                           skills: ["Manta Encounters", "Drift Dives", "Freediving"],                 dives: 600,  years: 7,  rating: 4.9, reviews: 50,  topRated: true,  bio: "Lakshadweep local and experienced buddy for divers exploring the atolls. Knows every manta cleaning station in the archipelago." },
+  { id: "11", name: "Dev Malhotra",    title: "Master Scuba Diver",              category: "Dive Buddy", agency: "SSI",  location: "Pondicherry, Tamil Nadu",   image: u("1488508872907-592763824245", 600), courses: [],                                                                            skills: ["Wreck Dives", "Deep Dives", "GoPro Filming"],                    dives: 400,  years: 6,  rating: 4.7, reviews: 30,                   bio: "Weekend warrior with 400+ dives on the Coromandel Coast. Looking for buddies for regular deep and wreck dives out of Pondicherry." },
+  { id: "12", name: "Lena Thomas",     title: "Master Scuba Diver",              category: "Dive Buddy", agency: "NAUI", location: "Port Blair, Andaman",       image: u("1438761681033-6461ffad8d80", 600), courses: [],                                                                            skills: ["Wreck Dives", "Underwater Photography", "Liveaboard Trips"],     dives: 500,  years: 8,  rating: 4.8, reviews: 40,                   bio: "Photographer and liveaboard regular based in Port Blair. Always keen to buddy up for Cinque Island and Rutland trips." },
 ];
 
 export const COURSES = [

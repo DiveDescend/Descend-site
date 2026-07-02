@@ -1,11 +1,10 @@
 import SectionHeader from "@/components/shared/section-header";
 import LocationCard from "@/components/shared/location-card";
 import DiveCenterCard from "@/components/shared/dive-center-card";
-import CourseCard from "@/components/shared/course-card";
-import InstructorCard from "@/components/shared/instructor-card";
-import { LOCATIONS, DIVE_CENTERS, COURSES, INSTRUCTORS } from "@/lib/mock-data";
+import CreatureCard from "@/components/shared/creature-card";
+import { LOCATIONS, DIVE_CENTERS, CREATURES } from "@/lib/mock-data";
 
-export default function HomePage() {
+export default function DivesPage() {
   return (
     <div className="mx-auto max-w-screen-2xl px-4 py-8 space-y-10">
       <section className="space-y-4">
@@ -27,19 +26,10 @@ export default function HomePage() {
       </section>
 
       <section className="space-y-4">
-        <SectionHeader title="Courses" seeAllHref="/courses" />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {COURSES.slice(0, 5).map((course) => (
-            <CourseCard key={course.id} {...course} />
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <SectionHeader title="Instructors" seeAllHref="/instructors" />
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
-          {INSTRUCTORS.slice(0, 5).map((instructor) => (
-            <InstructorCard key={instructor.id} {...instructor} />
+        <SectionHeader title="Marine Creatures" seeAllHref="/discover/creatures" />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+          {CREATURES.slice(0, 5).map((c) => (
+            <CreatureCard key={c.id} {...c} />
           ))}
         </div>
       </section>

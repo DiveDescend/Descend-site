@@ -1,58 +1,77 @@
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Star } from "lucide-react";
+import Image from "next/image";
+import { MapPin, Star } from "lucide-react";
+import ChipRow from "@/components/shared/chip-row";
+import type { Instructor } from "@/lib/mock-data";
 
-interface InstructorCardProps {
-  id: string;
-  name: string;
-  location: string;
-  certifications: string[];
-  divesLed: number;
-  rating: number;
-  color: string;
-}
+const CERT_ICONS: Record<string, string> = {
+  PADI: "/padi.svg",
+  SSI:  "/ssi.svg",
+  NAUI: "/naui.svg",
+};
+
+const plus = (n: number) => `${n.toLocaleString()}+`;
 
 export default function InstructorCard({
-  id,
-  name,
-  location,
-  certifications,
-  divesLed,
-  rating,
-  color,
-}: InstructorCardProps) {
+  id, name, title, agency, location, image, skills, dives, years, rating, topRated,
+}: Instructor) {
   return (
-    <Link href={`/instructors/${id}`}>
-      <Card className="transition-shadow hover:shadow-md">
-        <CardContent className="p-4">
-          <div className="flex items-start gap-3">
-            <div
-              className={`h-12 w-12 shrink-0 rounded-full ${color} flex items-center justify-center text-lg font-bold text-white`}
-            >
-              {name.charAt(0)}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate font-semibold">{name}</p>
-              <p className="truncate text-xs text-muted-foreground">{location}</p>
-              <div className="mt-1.5 flex items-center gap-2">
-                <div className="flex items-center gap-0.5 text-xs">
-                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                  <span className="font-medium">{rating}</span>
-                </div>
-                <span className="text-xs text-muted-foreground">{divesLed.toLocaleString()} dives led</span>
-              </div>
-            </div>
+    <Link href={`/instructors/${id}`} className="group block">
+      <div className="relative aspect-square overflow-hidden rounded-2xl">
+        <Image
+          src={image}
+          alt={name}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+        />
+        {topRated && (
+          <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm backdrop-blur-md">
+            <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+            Top rated
           </div>
-          <div className="mt-3 flex flex-wrap gap-1">
-            {certifications.slice(0, 2).map((cert) => (
-              <Badge key={cert} variant="outline" className="text-[10px]">
-                {cert}
-              </Badge>
-            ))}
+        )}
+      </div>
+
+      <div className="mt-3 space-y-1.5">
+        {/* Name + rating */}
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-base font-bold tracking-tight leading-tight">{name}</p>
+          <div className="flex shrink-0 items-center gap-1 text-sm">
+            <Star className="h-3.5 w-3.5 fill-foreground text-foreground" />
+            <span className="font-semibold">{rating.toFixed(1)}</span>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Title + agency icon */}
+        <div className="flex items-center justify-between gap-2">
+          <p className="truncate text-sm font-medium">{title}</p>
+          {CERT_ICONS[agency] && (
+            <Image src={CERT_ICONS[agency]} alt={agency} width={22} height={22} className="shrink-0" />
+          )}
+        </div>
+
+        {/* Location */}
+        <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+          <MapPin className="h-3.5 w-3.5 shrink-0" />
+          {location}
+        </p>
+
+        {/* Skills — one row, overflow collapses into a "+N" chip */}
+        <ChipRow items={skills} className="pt-1" />
+
+        {/* Stats footer */}
+        <div className="mt-2 flex border-t pt-2.5">
+          <div className="flex-1">
+            <p className="text-[11px] text-muted-foreground">Dives</p>
+            <p className="text-sm font-semibold">{plus(dives)}</p>
+          </div>
+          <div className="flex-1 border-l pl-4">
+            <p className="text-[11px] text-muted-foreground">Experience</p>
+            <p className="text-sm font-semibold">{plus(years)} years</p>
+          </div>
+        </div>
+      </div>
     </Link>
   );
 }

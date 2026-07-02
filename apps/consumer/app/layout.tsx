@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import NavGuard from "@/components/nav/nav-guard";
+import CategoryTabs from "@/components/nav/category-tabs";
 import BottomNav from "@/components/nav/bottom-nav";
 import Footer from "@/components/nav/footer";
 import AgentationOverlay from "@/components/dev/agentation-overlay";
@@ -18,7 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="flex min-h-screen flex-col bg-background font-sans antialiased">
         <NavGuard />
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
+        <main className="flex-1 pb-16 md:pb-0">
+          <CategoryTabs />
+          {children}
+        </main>
         <Footer />
         <BottomNav />
         <AgentationOverlay />

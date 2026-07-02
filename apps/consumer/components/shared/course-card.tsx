@@ -1,16 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 
-interface CreatureCardProps {
+interface CourseCardProps {
   id: string;
   name: string;
-  tagline: string;
+  level: string;
+  days: number;
+  price: number;
   image: string;
 }
 
-export default function CreatureCard({ id, name, tagline, image }: CreatureCardProps) {
+export default function CourseCard({ id, name, level, days, price, image }: CourseCardProps) {
   return (
-    <Link href={`/discover/creatures`} className="group block">
+    <Link href={`/book/course/${id}`} className="group block">
       <div className="relative aspect-square overflow-hidden rounded-2xl">
         <Image
           src={image}
@@ -21,8 +23,9 @@ export default function CreatureCard({ id, name, tagline, image }: CreatureCardP
         />
       </div>
       <div className="mt-3 space-y-1">
-        <p className="text-base font-bold tracking-tight">{name}</p>
-        <p className="text-sm text-muted-foreground">{tagline}</p>
+        <p className="text-base font-bold tracking-tight leading-tight">{name}</p>
+        <p className="text-sm text-muted-foreground">{days} days · {level}</p>
+        <p className="text-sm font-semibold">${price}</p>
       </div>
     </Link>
   );

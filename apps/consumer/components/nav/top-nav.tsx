@@ -4,18 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Anchor, BookOpen, MapPin, Minus, Plus, Search } from "lucide-react";
+import { Anchor, BookOpen, ChevronDown, LayoutGrid, MapPin, Minus, Plus, Search, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import RangePicker, { shortDate } from "@/components/shared/range-picker";
+import { createClient } from "@/lib/supabase/client";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-  { id: "dives",   label: "Dives",   icon: Anchor,  href: "/" },
-  { id: "courses", label: "Courses", icon: BookOpen, href: "/courses" },
+  { id: "all",         label: "All",         tagline: "Browse everything",            icon: LayoutGrid, href: "/" },
+  { id: "dives",       label: "Dives",       tagline: "Dive sites and fun dives",     icon: Anchor,     href: "/dives" },
+  { id: "courses",     label: "Courses",     tagline: "Certifications and training",  icon: BookOpen,   href: "/courses" },
+  { id: "instructors", label: "Instructors", tagline: "Pros and dive buddies",        icon: Users,      href: "/instructors" },
 ];
 
 const SUGGESTED_LOCATIONS = [
@@ -28,6 +31,34 @@ const SUGGESTED_LOCATIONS = [
 ];
 
 // ─── Dropdown panels (rendered via portal, positioned with fixed coords) ─────
+
+function CategoryPanel({ style, currentId, onSelect }: {
+  style: React.CSSProperties;
+  currentId: string;
+  onSelect: (href: string) => void;
+}) {
+  return (
+    <div style={style} className="w-72 rounded-3xl border bg-background shadow-lg">
+      <div className="p-3">
+        {CATEGORIES.map(({ id, label, tagline, icon: Icon, href }) => (
+          <button key={id} onClick={() => onSelect(href)}
+            className={cn(
+              "flex w-full items-center gap-3 rounded-xl px-2 py-2.5 text-left transition-colors hover:bg-muted",
+              currentId === id && "bg-muted/60"
+            )}>
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted">
+              <Icon className="h-4 w-4 text-muted-foreground" strokeWidth={1.75} />
+            </div>
+            <div>
+              <p className="text-sm font-medium">{label}</p>
+              <p className="text-xs text-muted-foreground">{tagline}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function WherePanel({ style, filtered, onSelect }: {
   style: React.CSSProperties;
@@ -107,14 +138,17 @@ function DiversPanel({ style, divers, setDivers }: {
 
 // ─── TopNav ──────────────────────────────────────────────────────────────────
 
-type ActiveField = "where" | "when" | "divers" | null;
+type ActiveField = "category" | "where" | "when" | "divers" | null;
 
-const EXPANDED_H  = 152;
+const EXPANDED_H  = 88;
 const COLLAPSED_H = 64;
 
 export default function TopNav() {
   const pathname = usePathname();
-  const [activeCategory, setActiveCategory] = useState(pathname === "/courses" ? "courses" : "dives");
+  const router = useRouter();
+  const currentCategory =
+    CATEGORIES.find((c) => c.href === pathname) ??
+    (pathname?.startsWith("/instructors") ? CATEGORIES[3] : CATEGORIES[0]);
   const [activeField, setActiveField]       = useState<ActiveField>(null);
   const [scrolled, setScrolled]             = useState(false);
   const [where, setWhere]                   = useState("");
@@ -193,18 +227,59 @@ export default function TopNav() {
       <span className="text-xl font-bold tracking-tight">Descend</span>
     </Link>
   );
-  const Auth = () => (
-    <div className="flex shrink-0 items-center gap-2">
-      <Button asChild size="sm" variant="ghost"><Link href="/login">Log in</Link></Button>
-      <Button asChild size="sm"><Link href="/signup">Sign up</Link></Button>
-    </div>
-  );
+  const Auth = () => {
+    const router = useRouter();
+    const [email, setEmail] = useState<string | null | undefined>(undefined);
+
+    useEffect(() => {
+      const supabase = createClient();
+      supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? null));
+      const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+        setEmail(session?.user?.email ?? null);
+      });
+      return () => subscription.subscription.unsubscribe();
+    }, []);
+
+    async function handleSignOut() {
+      const supabase = createClient();
+      await supabase.auth.signOut();
+      router.push("/");
+      router.refresh();
+    }
+
+    if (email === undefined) {
+      return <div className="h-8 w-[132px] shrink-0" />;
+    }
+
+    if (email) {
+      return (
+        <div className="flex shrink-0 items-center gap-2">
+          <Button asChild size="sm" variant="ghost"><Link href="/profile">Profile</Link></Button>
+          <Button size="sm" variant="outline" onClick={handleSignOut}>Log out</Button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex shrink-0 items-center gap-2">
+        <Button asChild size="sm" variant="ghost"><Link href="/login">Log in</Link></Button>
+        <Button asChild size="sm"><Link href="/signup">Sign up</Link></Button>
+      </div>
+    );
+  };
 
   return (
     <>
     {mounted && activeField !== null && createPortal(
       <div className="fixed inset-0 z-40" onMouseDown={() => setActiveField(null)} />,
       document.body
+    )}
+    {mounted && activeField === "category" && createPortal(
+      <CategoryPanel
+        style={portalStyle("left")}
+        currentId={currentCategory.id}
+        onSelect={(href) => { setActiveField(null); router.push(href); }}
+      />, document.body
     )}
     {mounted && activeField === "where" && createPortal(
       <WherePanel
@@ -238,26 +313,9 @@ export default function TopNav() {
       <AnimatePresence mode="wait" initial={false}>
         {!scrolled ? (
           <motion.div key="expanded" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
-            <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-6">
-              <Logo />
-              <nav className="hidden md:flex items-center gap-10">
-                {CATEGORIES.map(({ id, label, icon: Icon, href }) => (
-                  <Link key={id} href={href} onClick={() => setActiveCategory(id)}
-                    className={cn(
-                      "flex flex-col items-center gap-1.5 border-b-2 py-1 text-xs font-medium transition-colors",
-                      activeCategory === id
-                        ? "border-foreground text-foreground"
-                        : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/40"
-                    )}>
-                    <Icon className="h-5 w-5" strokeWidth={1.75} />
-                    {label}
-                  </Link>
-                ))}
-              </nav>
-              <Auth />
-            </div>
-            <div className="hidden md:flex justify-center px-6 py-4">
-              <div ref={expandedContainerRef} className="relative w-full max-w-2xl">
+            <div className="mx-auto flex h-[88px] max-w-screen-2xl items-center gap-6 px-6">
+              <div className="flex flex-1 justify-start"><Logo /></div>
+              <div ref={expandedContainerRef} className="relative hidden w-full min-w-0 max-w-2xl md:block">
                 <div className={cn(
                   "flex items-stretch rounded-full border bg-background transition-shadow",
                   activeField ? "shadow-md" : "shadow-sm"
@@ -291,6 +349,7 @@ export default function TopNav() {
                   </div>
                 </div>
               </div>
+              <div className="flex flex-1 justify-end"><Auth /></div>
             </div>
           </motion.div>
         ) : (
@@ -299,8 +358,13 @@ export default function TopNav() {
               <Logo />
               <div ref={collapsedContainerRef} className="relative hidden md:block">
                 <div className="flex items-center divide-x rounded-full border bg-background shadow-sm">
+                  <button onClick={() => setActiveField(activeField === "category" ? null : "category")}
+                    className="flex items-center gap-1 rounded-l-full px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-muted/50">
+                    {currentCategory.label}
+                    <ChevronDown className={cn("h-3.5 w-3.5 text-muted-foreground transition-transform", activeField === "category" && "rotate-180")} />
+                  </button>
                   <button onClick={() => setActiveField(activeField === "where" ? null : "where")}
-                    className="rounded-l-full px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-muted/50">
+                    className="px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-muted/50">
                     {where || "Anywhere"}
                   </button>
                   <button onClick={() => setActiveField(activeField === "when" ? null : "when")}
