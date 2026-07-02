@@ -4,24 +4,25 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import OtpVerifyForm from "@/components/shared/otp-verify-form";
 
-function SignUpVerifyContent() {
+function LoginVerifyContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
+  const next = searchParams.get("next") ?? "/";
 
   return (
     <OtpVerifyForm
       email={email}
-      redirectTo="/onboarding"
-      backHref="/signup"
-      shouldCreateUser={true}
+      redirectTo={next}
+      backHref="/login"
+      shouldCreateUser={false}
     />
   );
 }
 
-export default function SignUpVerifyPage() {
+export default function LoginVerifyPage() {
   return (
     <Suspense fallback={null}>
-      <SignUpVerifyContent />
+      <LoginVerifyContent />
     </Suspense>
   );
 }
