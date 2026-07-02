@@ -61,6 +61,11 @@ export default function OtpVerifyForm({
     setError(null);
 
     const supabase = createClient();
+    if (!supabase) {
+      setError("Verification is temporarily unavailable. Please try again later.");
+      setVerifying(false);
+      return;
+    }
     const { error } = await supabase.auth.verifyOtp({
       email,
       token: digits.join(""),
@@ -83,6 +88,11 @@ export default function OtpVerifyForm({
     setResent(false);
 
     const supabase = createClient();
+    if (!supabase) {
+      setError("Verification is temporarily unavailable. Please try again later.");
+      setResending(false);
+      return;
+    }
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: { shouldCreateUser },

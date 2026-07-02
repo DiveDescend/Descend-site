@@ -20,6 +20,11 @@ export default function SignUpPage() {
     setError(null);
 
     const supabase = createClient();
+    if (!supabase) {
+      setError("Sign-up is temporarily unavailable. Please try again later.");
+      setLoading(false);
+      return;
+    }
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: { shouldCreateUser: true },
@@ -36,6 +41,10 @@ export default function SignUpPage() {
 
   async function handleGoogle() {
     const supabase = createClient();
+    if (!supabase) {
+      setError("Sign-up is temporarily unavailable. Please try again later.");
+      return;
+    }
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/auth/callback?next=/onboarding` },

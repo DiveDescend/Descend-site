@@ -233,6 +233,7 @@ export default function TopNav() {
 
     useEffect(() => {
       const supabase = createClient();
+      if (!supabase) { setEmail(null); return; }
       supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? null));
       const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
         setEmail(session?.user?.email ?? null);
@@ -242,7 +243,7 @@ export default function TopNav() {
 
     async function handleSignOut() {
       const supabase = createClient();
-      await supabase.auth.signOut();
+      if (supabase) await supabase.auth.signOut();
       router.push("/");
       router.refresh();
     }
