@@ -12,7 +12,7 @@ interface LocationCardProps {
 
 export default function LocationCard({ id, name, country, image }: LocationCardProps) {
   return (
-    <Link href={`/discover/locations`} className="group block">
+    <Link href={`/dive-centers?location=${encodeURIComponent(name)}`} className="group block">
       <div className="relative aspect-square overflow-hidden rounded-2xl">
         <Image
           src={image}
