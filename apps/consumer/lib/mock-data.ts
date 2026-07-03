@@ -315,9 +315,9 @@ export const COURSES = [
 ];
 
 export const FUN_DIVES = [
-  { id: "1", name: "Blue Corner Wall",  depth: "15–40m", duration: "2 dives", price: 120, minCert: "Advanced Open Water", image: u("1682687981907-170c006e3744") },
-  { id: "2", name: "Manta Ray Point",   depth: "8–25m",  duration: "2 dives", price: 110, minCert: "Open Water",          image: u("1542443605-fcefd6550d4a") },
-  { id: "3", name: "WWII Wreck Dive",   depth: "18–35m", duration: "1 dive",  price: 95,  minCert: "Advanced Open Water", image: u("1758968611255-af2c6f31370a") },
-  { id: "4", name: "Night Reef Dive",   depth: "5–18m",  duration: "1 dive",  price: 85,  minCert: "Open Water",          image: u("1742461399600-3ded0fe5bb0e") },
-  { id: "5", name: "Shark Drift Dive",  depth: "20–40m", duration: "2 dives", price: 130, minCert: "Advanced Open Water", image: u("1491438590914-bc09024cb91d") },
+  { id: "1", name: "Blue Corner Wall",  location: "Havelock Island, Andaman",   depth: "15–40m", duration: "2 dives", price: 120, minCert: "Advanced Open Water", image: u("1682687981907-170c006e3744") },
+  { id: "2", name: "Manta Ray Point",   location: "Agatti Island, Lakshadweep", depth: "8–25m",  duration: "2 dives", price: 110, minCert: "Open Water",          image: u("1542443605-fcefd6550d4a") },
+  { id: "3", name: "WWII Wreck Dive",   location: "Port Blair, Andaman",        depth: "18–35m", duration: "1 dive",  price: 95,  minCert: "Advanced Open Water", image: u("1758968611255-af2c6f31370a") },
+  { id: "4", name: "Night Reef Dive",   location: "Pondicherry, Tamil Nadu",    depth: "5–18m",  duration: "1 dive",  price: 85,  minCert: "Open Water",          image: u("1742461399600-3ded0fe5bb0e") },
+  { id: "5", name: "Shark Drift Dive",  location: "Netrani Island, Karnataka",  depth: "20–40m", duration: "2 dives", price: 130, minCert: "Advanced Open Water", image: u("1491438590914-bc09024cb91d") },
 ];

@@ -187,6 +187,16 @@ export default function TopNav() {
     if (activeField === "where") whereInputRef.current?.focus();
   }, [activeField]);
 
+  function submitSearch() {
+    setActiveField(null);
+    const qs = new URLSearchParams();
+    if (where.trim()) qs.set("where", where.trim());
+    if (dateFrom) qs.set("from", dateFrom);
+    if (dateTo) qs.set("to", dateTo);
+    if (divers > 0) qs.set("divers", String(divers));
+    router.push(qs.size > 0 ? `/search?${qs}` : "/search");
+  }
+
   function handleDateSelect(iso: string) {
     if (!dateFrom || (dateFrom && dateTo)) {
       setDateFrom(iso); setDateTo("");
@@ -343,7 +353,7 @@ export default function TopNav() {
                       <p className="text-[11px] font-semibold leading-none">Divers</p>
                       <p className={cn("mt-1 text-sm", divers > 0 ? "text-foreground" : "text-muted-foreground")}>{diverLabel}</p>
                     </div>
-                    <button onClick={() => setActiveField(null)} aria-label="Search"
+                    <button onClick={submitSearch} aria-label="Search"
                       className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
                       <Search className="h-4 w-4" />
                     </button>
@@ -377,7 +387,7 @@ export default function TopNav() {
                       className={cn("text-sm transition-colors", divers > 0 ? "text-foreground" : "text-muted-foreground")}>
                       {diverLabel}
                     </button>
-                    <button onClick={() => setActiveField(null)} aria-label="Search"
+                    <button onClick={submitSearch} aria-label="Search"
                       className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90">
                       <Search className="h-3.5 w-3.5" />
                     </button>

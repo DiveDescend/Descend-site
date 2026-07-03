@@ -1,38 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { createPortal } from "react-dom";
-import { ArrowDown, GraduationCap, LifeBuoy, Medal, Ship, Waves, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-function PathNode({ icon: Icon, title, note, accent }: {
-  icon: React.ElementType;
-  title: string;
-  note: string;
-  accent?: boolean;
-}) {
-  return (
-    <div className={cn(
-      "flex items-center gap-3 rounded-xl border p-3 text-left shadow-sm",
-      accent ? "border-primary/40 bg-primary/5" : "bg-background"
-    )}>
-      <div className={cn(
-        "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg",
-        accent ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
-      )}>
-        <Icon className="h-4 w-4" strokeWidth={1.75} />
-      </div>
-      <div>
-        <p className="text-sm font-semibold leading-tight">{title}</p>
-        <p className="text-xs text-muted-foreground">{note}</p>
-      </div>
-    </div>
-  );
-}
-
-function Arrow() {
-  return <ArrowDown className="mx-auto my-1.5 h-4 w-4 text-muted-foreground/60" />;
-}
+import { GraduationCap, LifeBuoy, Medal, Ship, Waves, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PathNode, Arrow } from "@/components/shared/path-node";
 
 export default function LearningPathModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
@@ -63,7 +36,7 @@ export default function LearningPathModal({ open, onClose }: { open: boolean; on
         </p>
 
         <div className="mx-auto mt-6 max-w-md">
-          <PathNode icon={Waves} title="Open Water Diver" note="Start here — your first certification, dive to 18m" accent />
+          <PathNode icon={Waves} title="Open Water Diver" note="Start here — your first certification, dive to 18m" state="current" />
           <Arrow />
           <PathNode icon={Ship} title="Advanced Open Water" note="Five adventure dives, extend your depth to 30m" />
           <Arrow />
@@ -93,6 +66,12 @@ export default function LearningPathModal({ open, onClose }: { open: boolean; on
         <p className="mt-5 text-center text-xs text-muted-foreground">
           Specialty courses like Nitrox and Deep Diver can be added at any point after Open Water.
         </p>
+
+        <div className="mt-4 flex justify-center">
+          <Button asChild variant="outline" size="sm" onClick={onClose}>
+            <Link href="/journey">View your journey →</Link>
+          </Button>
+        </div>
       </div>
     </div>,
     document.body

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Star, Waves } from "lucide-react";
 import { INSTRUCTORS } from "@/lib/mock-data";
+import { sessionsFrom } from "@/lib/mentor-sessions";
 
 const CERT_ICONS: Record<string, string> = {
   PADI: "/padi.svg",
@@ -116,13 +117,18 @@ export default function InstructorProfilePage({ params }: { params: { id: string
         </div>
       </div>
 
-      <Button className="w-full" size="lg" asChild>
-        <Link href="/book/fun-dive/1">
-          {instructor.category === "Dive Buddy"
-            ? `Connect with ${instructor.name.split(" ")[0]}`
-            : `Book a dive with ${instructor.name.split(" ")[0]}`}
-        </Link>
-      </Button>
+      <div className="space-y-1.5">
+        <Button className="w-full" size="lg" asChild>
+          <Link href={`/book/session/${instructor.id}`}>
+            {instructor.category === "Dive Buddy"
+              ? `Book a buddy dive with ${instructor.name.split(" ")[0]}`
+              : `Book a session with ${instructor.name.split(" ")[0]}`}
+          </Link>
+        </Button>
+        <p className="text-center text-xs text-muted-foreground">
+          Sessions from ${sessionsFrom(instructor)}
+        </p>
+      </div>
     </div>
   );
 }

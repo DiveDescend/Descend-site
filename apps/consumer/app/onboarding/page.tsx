@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Plus, Trash2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import StepIndicator from "@/components/shared/step-indicator";
 import { cn } from "@/lib/utils";
+import { addCerts, setProfile } from "@/lib/demo-store";
 
 const STEP_LABELS = ["About you", "Password", "Certified?", "Details", "Profile"];
 
@@ -196,9 +197,26 @@ function CertForm({
 }
 
 export default function OnboardingPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
   const [certified, setCertified] = useState<boolean | null>(null);
   const [certs, setCerts] = useState<CertEntry[]>([emptyCert()]);
+
+  const finish = (destination: string) => {
+    const validCerts = certs.filter((c) => c.agency && c.level);
+    setProfile({
+      ...(name.trim() ? { name: name.trim() } : {}),
+      ...(bio.trim() ? { bio: bio.trim() } : {}),
+      certified,
+      onboarded: true,
+    });
+    if (certified && validCerts.length) {
+      addCerts(validCerts.map(({ agency, level, number }) => ({ agency, level, number })));
+    }
+    router.push(destination);
+  };
 
   const goBack = () => {
     if (step === 5) return setStep(certified ? 4 : 3);
@@ -254,7 +272,7 @@ export default function OnboardingPage() {
             <CardContent className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium">Full name<Required /></label>
-                <Input placeholder="Jane Divers" />
+                <Input placeholder="Jane Divers" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium">Date of birth<Required /></label>
@@ -366,13 +384,15 @@ export default function OnboardingPage() {
                 <textarea
                   className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
                   placeholder="Tell other divers a bit about yourself..."
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
                 />
               </div>
-              <Button className="w-full" asChild>
-                <Link href="/">Finish setup</Link>
+              <Button className="w-full" onClick={() => finish("/journey")}>
+                Finish setup
               </Button>
-              <Button variant="ghost" className="w-full text-muted-foreground" asChild>
-                <Link href="/">Skip for now</Link>
+              <Button variant="ghost" className="w-full text-muted-foreground" onClick={() => finish("/")}>
+                Skip for now
               </Button>
             </CardContent>
           </Card>
