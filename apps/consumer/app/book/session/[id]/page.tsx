@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StepIndicator from "@/components/shared/step-indicator";
 import { shortDate } from "@/components/shared/range-picker";
+import Price from "@/components/shared/price";
 import { Anchor, CheckCircle2, Loader2, Target, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { INSTRUCTORS } from "@/lib/mock-data";
@@ -85,7 +86,7 @@ export default function SessionBookingPage({ params }: { params: { id: string } 
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{selectedType?.duration}</span>
-                <span className="font-semibold">${price}</span>
+                <span className="font-semibold"><Price amount={price} /></span>
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
@@ -234,7 +235,7 @@ export default function SessionBookingPage({ params }: { params: { id: string } 
               </div>
               <div className="border-t pt-2 flex justify-between font-semibold">
                 <span>Total</span>
-                <span>${price}</span>
+                <span><Price amount={price} /></span>
               </div>
             </div>
             <Button className="w-full" size="lg" disabled={confirming} onClick={handleConfirm}>
@@ -243,7 +244,7 @@ export default function SessionBookingPage({ params }: { params: { id: string } 
                   <Loader2 className="h-4 w-4 animate-spin" /> Confirming…
                 </span>
               ) : (
-                `Confirm session — $${price}`
+                <>Confirm session — <Price amount={price} /></>
               )}
             </Button>
             <Button variant="outline" className="w-full" disabled={confirming} onClick={() => setStep(2)}>

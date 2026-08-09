@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import RangePicker, { shortDate } from "@/components/shared/range-picker";
 import { CheckCircle, CheckCircle2, Loader2 } from "lucide-react";
+import Price from "@/components/shared/price";
 import { COURSES } from "@/lib/mock-data";
 import { addBooking, type Booking } from "@/lib/demo-store";
 import { addDaysISO } from "@/lib/dates";
@@ -66,7 +67,7 @@ export default function CourseBookingPage({ params }: { params: { id: string } }
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{course.days} days · {course.agency}</span>
-                <span className="font-semibold">${course.price}</span>
+                <span className="font-semibold"><Price amount={course.price} /></span>
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
@@ -105,7 +106,7 @@ export default function CourseBookingPage({ params }: { params: { id: string } }
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <p className="text-2xl font-bold">${course.price}</p>
+            <p className="text-2xl font-bold"><Price amount={course.price} /></p>
             <p className="text-sm text-muted-foreground">Total cost</p>
           </CardContent>
         </Card>
@@ -152,7 +153,7 @@ export default function CourseBookingPage({ params }: { params: { id: string } }
               <Loader2 className="h-4 w-4 animate-spin" /> Confirming…
             </span>
           ) : startDate ? (
-            `Confirm booking — $${course.price}`
+            <>Confirm booking — <Price amount={course.price} /></>
           ) : (
             "Pick a start date to book"
           )}

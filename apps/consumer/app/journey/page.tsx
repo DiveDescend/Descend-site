@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Camera, Flame, GraduationCap, LifeBuoy, Medal, Moon, Ship, Waves } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PathNode, Arrow, type PathNodeState } from "@/components/shared/path-node";
+import Price from "@/components/shared/price";
 import { COURSES } from "@/lib/mock-data";
 import { useDemoStore } from "@/lib/use-demo-store";
 import {
@@ -80,7 +81,7 @@ export default function JourneyPage() {
                   s === "current" && course ? (
                     <Button asChild size="sm" className="w-full">
                       <Link href={`/book/course/${course.id}`}>
-                        Continue your journey — {course.name} · {course.days} days · ${course.price}
+                        Continue your journey — {course.name} · {course.days} days · <Price amount={course.price} />
                       </Link>
                     </Button>
                   ) : s === "current" && !course ? (
@@ -115,7 +116,7 @@ export default function JourneyPage() {
                   !done && unlocked && course ? (
                     <Button asChild size="sm" variant="outline" className="w-full">
                       <Link href={`/book/course/${course.id}`}>
-                        Book {course.name} · ${course.price}
+                        Book {course.name} · <Price amount={course.price} />
                       </Link>
                     </Button>
                   ) : undefined

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Price from "@/components/shared/price";
 
 const CERT_ICONS: Record<string, string> = {
   PADI: "/padi.svg",
@@ -37,7 +38,7 @@ export default function CourseCard({ id, name, level, days, price, image, agency
           )}
         </div>
         <p className="text-sm text-muted-foreground">{days} days · {level}</p>
-        <p className="text-sm font-semibold">${price}</p>
+        <p className="text-sm font-semibold"><Price amount={price} /></p>
       </div>
     </Link>
   );

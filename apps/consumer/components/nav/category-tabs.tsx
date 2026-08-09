@@ -13,7 +13,7 @@ const CATEGORIES = [
   { id: "instructors", label: "Instructors", icon: Users,      href: "/instructors" },
 ];
 
-const VISIBLE_ROUTES = ["/", "/dives", "/courses", "/instructors"];
+const VISIBLE_ROUTES = ["/dives", "/courses", "/instructors"];
 
 export default function CategoryTabs() {
   const pathname = usePathname();

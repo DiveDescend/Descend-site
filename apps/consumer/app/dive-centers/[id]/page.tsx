@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import Price from "@/components/shared/price";
 import {
   MapPin, Star, Clock, Phone, Globe, ExternalLink, ArrowDown,
   Droplets, Lock, Bed, Coffee, Heart, Package, Car,
@@ -121,7 +122,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                         <p className="flex items-center gap-1 text-sm text-muted-foreground">
                           <ArrowDown className="h-3.5 w-3.5 shrink-0" />{dive.depth} · {dive.duration}
                         </p>
-                        <p className="text-sm font-semibold">${dive.price}</p>
+                        <p className="text-sm font-semibold"><Price amount={dive.price} /></p>
                       </div>
                     </Link>
                   ))}
@@ -147,7 +148,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                       <div className="mt-3 space-y-1">
                         <p className="text-base font-bold tracking-tight leading-tight">{course.name}</p>
                         <p className="text-sm text-muted-foreground">{course.days} days · {course.level}</p>
-                        <p className="text-sm font-semibold">${course.price}</p>
+                        <p className="text-sm font-semibold"><Price amount={course.price} /></p>
                       </div>
                     </Link>
                   ))}
@@ -246,7 +247,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                     <div className="mt-3 space-y-1">
                       <p className="text-base font-bold tracking-tight leading-tight">{course.name}</p>
                       <p className="text-sm text-muted-foreground">{course.days} days · {course.level}</p>
-                      <p className="text-sm font-semibold">${course.price}</p>
+                      <p className="text-sm font-semibold"><Price amount={course.price} /></p>
                     </div>
                   </Link>
                 ))}
@@ -266,7 +267,7 @@ export default function DiveCenterProfilePage({ params }: { params: { id: string
                       <p className="flex items-center gap-1 text-sm text-muted-foreground">
                         <ArrowDown className="h-3.5 w-3.5 shrink-0" />{dive.depth} · {dive.duration}
                       </p>
-                      <p className="text-sm font-semibold">${dive.price}</p>
+                      <p className="text-sm font-semibold"><Price amount={dive.price} /></p>
                     </div>
                   </Link>
                 ))}

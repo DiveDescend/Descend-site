@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import StepIndicator from "@/components/shared/step-indicator";
 import RangePicker, { shortDate } from "@/components/shared/range-picker";
+import Price from "@/components/shared/price";
 import { AlertTriangle, CheckCircle2, CreditCard, Loader2, Lock } from "lucide-react";
 import { FUN_DIVES } from "@/lib/mock-data";
 import { addBooking, type Booking } from "@/lib/demo-store";
@@ -133,7 +134,7 @@ function FunDiveWizard({ id }: { id: string }) {
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{divers} diver{divers !== 1 ? "s" : ""} · equipment included</span>
-                <span className="font-semibold">${total}</span>
+                <span className="font-semibold"><Price amount={total} /></span>
               </div>
             </div>
             <p className="text-xs text-muted-foreground">
@@ -281,7 +282,7 @@ function FunDiveWizard({ id }: { id: string }) {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{dive.name}</span>
-                <span>${dive.price}</span>
+                <span><Price amount={dive.price} /></span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Dates</span>
@@ -301,7 +302,7 @@ function FunDiveWizard({ id }: { id: string }) {
               </div>
               <div className="border-t pt-2 flex justify-between font-semibold">
                 <span>Total</span>
-                <span>${total}</span>
+                <span><Price amount={total} /></span>
               </div>
             </div>
             <Button className="w-full" size="lg" onClick={() => setStep(5)}>Continue to payment</Button>
@@ -347,7 +348,7 @@ function FunDiveWizard({ id }: { id: string }) {
                   <Loader2 className="h-4 w-4 animate-spin" /> Processing…
                 </span>
               ) : (
-                `Pay $${total}`
+                <>Pay <Price amount={total} /></>
               )}
             </Button>
             <Button variant="outline" className="w-full" disabled={paying} onClick={() => setStep(4)}>Back</Button>

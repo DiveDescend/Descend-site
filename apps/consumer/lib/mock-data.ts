@@ -14,6 +14,99 @@ export const LOCATIONS = [
   { id: "10", name: "Kovalam",              country: "Kerala",             diveCount: 70,  image: u("1646130322178-c9d8da261891") },
 ];
 
+// General diving-season guidance for each location. India's diving is universally
+// restricted by the monsoon (roughly June–September) — the specifics below reflect
+// that, plus regional peaks in visibility where known.
+//
+// `chamber` and `hospital` are best-effort and UNVERIFIED — hyperbaric chamber
+// availability and civilian access change over time and must be confirmed locally
+// (e.g. with DAN or the dive operator) before relying on them in an emergency.
+export const LOCATION_DIVE_INFO: Record<
+  string,
+  { description: string; season: string; weather: string; marineLife: string[]; chamber: string; hospital: string }
+> = {
+  "1": {
+    description: "Havelock is the beating heart of Andaman diving — walls, coral gardens and the occasional wreck sit just offshore, with some of India's best visibility outside the monsoon.",
+    season: "November – April",
+    weather: "Warm and dry, calm seas",
+    marineLife: ["Reef sharks", "Sea turtles", "Manta rays", "Colourful reef fish"],
+    chamber: "Port Blair — reachable by inter-island ferry",
+    hospital: "GB Pant Hospital, Port Blair",
+  },
+  "2": {
+    description: "Pondicherry's Coromandel Coast offers a mix of natural reefs and wrecks close to shore, making it one of the most accessible dive destinations on India's mainland.",
+    season: "January – May",
+    weather: "Warm, with calmer seas after the northeast monsoon",
+    marineLife: ["Moray eels", "Nudibranchs", "Groupers", "Reef fish"],
+    chamber: "No local chamber confirmed — nearest referral is Chennai",
+    hospital: "JIPMER, Pondicherry",
+  },
+  "3": {
+    description: "Lakshadweep's uninhabited atolls and lagoons are among India's most pristine dive sites, with exceptional clarity and big pelagic encounters.",
+    season: "October – May",
+    weather: "Tropical and calm, closed during the monsoon",
+    marineLife: ["Manta rays", "Whale sharks", "Reef sharks", "Turtles"],
+    chamber: "Kochi (mainland) — emergency evacuation required",
+    hospital: "Indira Gandhi Hospital, Kavaratti",
+  },
+  "4": {
+    description: "Goa's sheltered bay dives and shallow reefs make it one of the most beginner-friendly places to learn in India, with a couple of accessible wrecks for certified divers.",
+    season: "October – May",
+    weather: "Warm and dry outside the southwest monsoon",
+    marineLife: ["Sea turtles", "Clownfish", "Reef fish", "Occasional rays"],
+    chamber: "INHS Patanjali, Vasco da Gama (Indian Navy — civilian access unconfirmed)",
+    hospital: "Goa Medical College Hospital, Bambolim",
+  },
+  "5": {
+    description: "Netrani Island offers the best visibility on India's mainland, with a pinnacle dive that draws sharks, rays and dense schools of fish.",
+    season: "October – May, best February – May",
+    weather: "Calm seas, clearest water late in the season",
+    marineLife: ["Whale sharks (seasonal)", "Bull sharks", "Eagle rays", "Schooling trevally"],
+    chamber: "No local chamber confirmed — nearest referral is Goa or Kochi",
+    hospital: "KMC Hospital, Mangalore",
+  },
+  "6": {
+    description: "Quieter than neighbouring Havelock, Neil Island has peaceful reefs and a good chance of spotting dugongs among the seagrass beds.",
+    season: "November – April",
+    weather: "Warm and dry, calm seas",
+    marineLife: ["Dugongs", "Sea turtles", "Reef fish", "Soft corals"],
+    chamber: "Port Blair — reachable by inter-island ferry",
+    hospital: "GB Pant Hospital, Port Blair",
+  },
+  "7": {
+    description: "A newer entrant to India's diving map, Tarkarli's rocky reefs sit along the Konkan coast and suit divers looking for something off the beaten path.",
+    season: "October – May",
+    weather: "Warm, with calmer seas outside the monsoon",
+    marineLife: ["Reef fish", "Groupers", "Octopus", "Soft corals"],
+    chamber: "No local chamber confirmed — nearest referral is Goa or Mumbai",
+    hospital: "Sindhudurg District Hospital, Oros",
+  },
+  "8": {
+    description: "Bangaram's lagoon and outer reef slopes are Lakshadweep at its most untouched, with manta ray cleaning stations a highlight for many divers.",
+    season: "October – May",
+    weather: "Tropical and calm, closed during the monsoon",
+    marineLife: ["Manta rays", "Reef sharks", "Turtles", "Colourful reef fish"],
+    chamber: "Kochi (mainland) — emergency evacuation required",
+    hospital: "Indira Gandhi Hospital, Kavaratti",
+  },
+  "9": {
+    description: "The gateway to Netrani Island, Murudeshwar also has its own reefs and is a good base for exploring Karnataka's best diving.",
+    season: "October – May, best February – May",
+    weather: "Calm seas, clearest water late in the season",
+    marineLife: ["Whale sharks (seasonal)", "Barracuda", "Reef fish", "Nudibranchs"],
+    chamber: "No local chamber confirmed — nearest referral is Goa or Kochi",
+    hospital: "KMC Hospital, Mangalore",
+  },
+  "10": {
+    description: "Kovalam's diving is still developing, with rocky reefs close to Kerala's popular beaches — a convenient option for divers already visiting the coast.",
+    season: "December – April",
+    weather: "Calmer seas outside the southwest monsoon",
+    marineLife: ["Reef fish", "Groupers", "Sea turtles", "Soft corals"],
+    chamber: "INHS Sanjivani, Kochi (Indian Navy — civilian access unconfirmed)",
+    hospital: "Government Medical College, Thiruvananthapuram",
+  },
+};
+
 export const CREATURES = [
   { id: "1", name: "Whale Shark",      tagline: "The ocean's gentle giant — spotted off Lakshadweep & Pondicherry",  image: u("1540202404-b2979d19ed37") },
   { id: "2", name: "Sea Turtle",       tagline: "Five species call India's coastline home",                          image: u("1437622368342-7a3d73a34c8f") },
@@ -321,3 +414,20 @@ export const FUN_DIVES = [
   { id: "4", name: "Night Reef Dive",   location: "Pondicherry, Tamil Nadu",    depth: "5–18m",  duration: "1 dive",  price: 85,  minCert: "Open Water",          image: u("1742461399600-3ded0fe5bb0e") },
   { id: "5", name: "Shark Drift Dive",  location: "Netrani Island, Karnataka",  depth: "20–40m", duration: "2 dives", price: 130, minCert: "Advanced Open Water", image: u("1491438590914-bc09024cb91d") },
 ];
+
+// Every individually-named dive site across the app — the bookable fun dives, plus every
+// site listed under a dive center — so search can match a specific site name directly
+// (e.g. "Netrani Pinnacle") and still resolve back to the location it's in.
+export const DIVE_SITE_INDEX: { name: string; location: string }[] = (() => {
+  const seen = new Set<string>();
+  const all = [
+    ...FUN_DIVES.map((d) => ({ name: d.name, location: d.location })),
+    ...DIVE_CENTERS.flatMap((dc) => dc.diveSites.map((s) => ({ name: s.name, location: dc.location }))),
+  ];
+  return all.filter((s) => {
+    const key = `${s.name}|${s.location}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+})();

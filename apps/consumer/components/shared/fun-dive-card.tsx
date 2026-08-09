@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowDown, MapPin } from "lucide-react";
+import Price from "@/components/shared/price";
 
 interface FunDiveCardProps {
   id: string;
@@ -39,7 +40,7 @@ export default function FunDiveCard({ id, name, location, depth, duration, price
           <ArrowDown className="h-3.5 w-3.5 shrink-0" />
           {depth} · {duration}
         </p>
-        <p className="text-sm font-semibold">${price}</p>
+        <p className="text-sm font-semibold"><Price amount={price} /></p>
       </div>
     </Link>
   );

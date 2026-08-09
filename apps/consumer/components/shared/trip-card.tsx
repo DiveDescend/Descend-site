@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { shortDate } from "@/components/shared/range-picker";
 import { cancelBooking, type Booking } from "@/lib/demo-store";
 import { sessionTypeLabel } from "@/lib/mentor-sessions";
+import Price from "@/components/shared/price";
 
 const KIND_META = {
   "fun-dive": { label: "Fun dive", icon: Anchor },
@@ -54,7 +55,7 @@ export default function TripCard({ booking, upcoming, needsLog }: {
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end">
-          <p className="text-sm font-semibold">${booking.price}</p>
+          <p className="text-sm font-semibold"><Price amount={booking.price} /></p>
           {upcoming ? (
             <Button
               size="sm"
